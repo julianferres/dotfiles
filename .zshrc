@@ -143,7 +143,7 @@ alias lsr="exa -r"
 
 alias alacrittyconfig="vi ~/.config/alacritty/alacritty.yml"
 alias zshconfig="vi ~/.zshrc"
-alias gitdot="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
+alias gdot="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
 alias ohmyzsh="vi ~/.oh-my-zsh"
 alias open="xdg-open"
 
