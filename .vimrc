@@ -87,6 +87,7 @@ set clipboard=unnamedplus
 """" Plugins
 
 call plug#begin('~/.vim/plugged')
+Plug 'ap/vim-css-color'
 Plug 'scrooloose/nerdtree'
 Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
