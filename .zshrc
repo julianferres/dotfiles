@@ -23,6 +23,7 @@ ZSH_THEME="robbyrussell"
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
+#ZSH_TMUX_AUTOSTART=true
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 DISABLE_AUTO_UPDATE="true"
@@ -80,6 +81,7 @@ plugins=(
     git
     history-substring-search
     k
+    tmux
     z
     zsh-autosuggestions
     zsh-interactive-cd
@@ -116,14 +118,19 @@ function makefile(){
     cp ~/CP/templates/problem/Makefile ~/CP/templates/dbg.cpp .
 }
 function plantilla(){
-    for i
-        do cp ~/CP/templates/problem/main.cpp "$i".cpp
+    for problem
+        do cp ~/CP/templates/problem/main.cpp "$problem".cpp
     done
     cp ~/CP/templates/problem/main.py .
 }
 function mkcdir(){
     mkdir -p -- "$1" && cd -P -- "$1"
 }
+function rmd(){
+    sudo rm -r $@
+}
+
+
 function wacomconfig(){
     xsetwacom set "Wacom One by Wacom S Pen stylus" Rotate half 
     xsetwacom set "Wacom One by Wacom S Pen stylus" Button 3 key "ctrl z"
@@ -151,4 +158,5 @@ alias open="xdg-open"
 alias -s cpp=vi
 alias -s rs=vi
 alias -s js=vi
-alias -s py=vi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

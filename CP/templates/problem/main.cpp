@@ -4,10 +4,11 @@ using namespace std;
 typedef long long ll;
 typedef vector<ll> vi; typedef pair<ll,ll> ii;
 typedef vector<ii> vii; typedef vector<bool> vb;
-#define FIN ios::sync_with_stdio(0);cout.tie(0)
+#define FIN ios::sync_with_stdio(0);cin.tie(0);cout.tie(0)
 #define forr(i, a, b) for(int i = (a); i < (int) (b); i++)
 #define forn(i, n) forr(i, 0, n)
 #define DBG(x) cerr << #x << " = " << (x) << endl
+#define RAYA cerr << "===============================" << endl
 #define pb push_back
 #define mp make_pair
 #define all(c) (c).begin(),(c).end()
