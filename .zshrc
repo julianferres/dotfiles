@@ -123,11 +123,11 @@ function plantilla(){
     done
     cp ~/CP/templates/problem/main.py .
 }
-function mkcdir(){
-    mkdir -p -- "$1" && cd -P -- "$1"
-}
-function rmd(){
-    sudo rm -r $@
+function mkcdir(){ mkdir -p -- "$1" && cd -P -- "$1" }
+function rmd(){ sudo rm -r $@ }
+function cdr(){ 
+    cd 
+    cd "$@"
 }
 
 
