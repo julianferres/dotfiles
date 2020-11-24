@@ -21,8 +21,8 @@ CLEAN_TARGETS := $(TARGET)
 #EXECUTE := python3 ./$(TARGET)
 #CLEAN_TARGETS :=
 
-CASES := $(sort $(basename $(wildcard *.in)))
-TESTS := $(sort $(basename $(wildcard *.out)))
+CASES := $(sort $(basename $(wildcard $(TARGET)*.in)))
+TESTS := $(sort $(basename $(wildcard $(TARGET)*.out)))
 
 all: $(TARGET)
 

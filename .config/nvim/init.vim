@@ -104,6 +104,7 @@ Plug 'mxw/vim-jsx'
 Plug 'preservim/nerdcommenter'
 Plug 'pangloss/vim-javascript'
 Plug 'zxqfl/tabnine-vim'
+Plug 'skywind3000/asyncrun.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
@@ -141,10 +142,10 @@ let $FZF_DEFAULT_OPTS='--reverse'
 "let g:fzf_layout = { 'window' : { 'width': 0.8, 'height': 0.8 } }
 
 """""" Competitive programming shorcuts
-autocmd filetype cpp nnoremap <F8> :w <bar> ! g++ -std=c++17 -DLOCAL -Wall -g -O2 -Wconversion -Wshadow -Wextra % -o %:r && ./%:r <CR>
+autocmd filetype cpp nnoremap <F8> :w <bar> AsyncRun g++ -std=c++17 -DLOCAL -Wall -g -O2 -Wconversion -Wshadow -Wextra % -o %:r && ./%:r <CR>
 filetype plugin indent on    " required
 
-autocmd filetype python nnoremap <F8> :w <bar> !python3 % <CR>
+autocmd filetype python nnoremap <F8> :w <bar> AsyncRun python3 % <CR>
 
 set showcmd
 let g:ycm_show_diagnostics_ui = 0
@@ -191,6 +192,8 @@ function! s:show_documentation()
   endif
 endfunction
 
+"Async
+let g:asyncrun_open=10
 
 "Comandos de guardar
 nmap <c-s> :w<cr>

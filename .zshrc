@@ -153,10 +153,17 @@ alias zshconfig="vi ~/.zshrc"
 alias gdot="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
 alias ohmyzsh="vi ~/.oh-my-zsh"
 alias open="xdg-open"
+alias ccat='pygmentize -g -O style=monokai'
 
 #Add automatic vim open to certain file
 alias -s cpp=vi
 alias -s rs=vi
 alias -s js=vi
+
+
+#nnn config
+alias nnn='nnn -e'
+export NNN_PLUG='f:finder;o:fzopen;d:diffs;n:nuke;p:pdfview;v:imgview;c:fzcd;z:preview-tui'
+export NNN_FIFO='/tmp/nnn.fifo'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
