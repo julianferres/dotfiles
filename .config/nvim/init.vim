@@ -9,6 +9,9 @@ set visualbell
 set rtp+=~/.fzf
 source ~/.fzf/plugin/fzf.vim
 
+set noeb
+set novb
+
 "Me deja usar ctrl-s y ctrl-q para otras cosas
 silent !stty -ixon
 autocmd VimLeave * silent !stty ixon
@@ -34,8 +37,7 @@ nnoremap <Leader>O O<Esc>j
 "fzf
 map <c-p> :Files<CR>
 
-"NERDTree
-nmap <F6> :NERDTreeToggle<CR>
+"UndoTree
 nmap <F7> :UndotreeToggle<CR>
 
 
@@ -44,7 +46,7 @@ syntax enable
 filetype plugin indent on
 syntax on
 
-"Set up vertical vs block cursor for insert/normal mode
+""Set up vertical vs block cursor for insert/normal mode
 if &term =~ "screen."
     let &t_ti.="\eP\e[1 q\e\\"
     let &t_SI.="\eP\e[5 q\e\\"
@@ -86,16 +88,20 @@ set clipboard=unnamedplus
 """" Plugins
 
 call plug#begin()
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
 Plug 'ap/vim-css-color'
-Plug 'scrooloose/nerdtree'
-Plug 'jiangmiao/auto-pairs'
+Plug 'mhinz/vim-startify'
+"Plug 'jiangmiao/auto-pairs'
+Plug 'mcchrish/nnn.vim', { 'branch': 'rewrite' }
 Plug 'SirVer/ultisnips'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
+Plug 'pR0Ps/molokai-dark'
 "Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
 Plug 'junegunn/fzf.vim'
 Plug 'mbbill/undotree'
 Plug 'christoomey/vim-tmux-navigator'
@@ -206,16 +212,41 @@ nmap <leader>gc :Gcommit<CR>
 nmap <leader>gp :Gpush<CR>
 nmap <leader>gl :Gpull<CR>
 
-colorscheme gruvbox
-let g:gruvbox_contrast_dark='hard'
-set signcolumn=number
+"colorscheme gruvbox
+"let g:gruvbox_contrast_dark='hard'
+colorscheme molokai-dark
+let g:airline_theme='molokai'
 
-hi normal ctermbg=NONE guibg=NONE
+set signcolumn=yes
+
+
 hi diffAdded cterm=bold ctermbg=NONE ctermfg=NONE
 hi diffRemoved cterm=bold ctermbg=NONE ctermfg=NONE
 
+hi LineNr ctermbg=NONE guibg=NONE
+hi cursorLineNr cterm=NONE ctermfg=DarkBlue
+hi Pmenu ctermbg=236 guibg=darkgray
+hi signcolumn ctermbg=NONE
 
-hi diffFile cterm=NONE ctermbg=NONE ctermfg=DarkBlue
-hi gitcommitDiff cterm=NONE ctermfg=DarkBlue
-hi diffIndexLine cterm=NONE ctermfg=DarkBlue
-hi diffLine cterm=NONE ctermfg=DarkBlue
+" Startify
+"
+let g:startify_lists = [
+          \ { 'type': 'files',     'header': ['   Files']            },
+          \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
+          \ { 'type': 'sessions',  'header': ['   Sessions']       },
+          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+          \ ]
+
+let g:startify_bookmarks = [
+            \ { 'c': '~/.config/qtile' },
+            \ { 'i': '~/.config/nvim/init.vim' },
+            \ { 'z': '~/.zshrc' },
+            \ ]
+
+" Floating window (neovim latest and vim with patch 8.2.191)
+let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
+
+let g:nnn#action = {
+      \ '<c-t>': 'tab split',
+      \ '<c-x>': 'split',
+      \ '<c-v>': 'vsplit' }

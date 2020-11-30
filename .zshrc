@@ -115,7 +115,7 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 function makefile(){
-    cp ~/CP/templates/problem/Makefile ~/CP/templates/dbg.cpp .
+    cp ~/CP/templates/problem/Makefile ~/CP/templates/problem/dbg.cpp .
 }
 function plantilla(){
     for problem
@@ -126,8 +126,7 @@ function plantilla(){
 function mkcdir(){ mkdir -p -- "$1" && cd -P -- "$1" }
 function rmd(){ sudo rm -r $@ }
 function cdr(){ 
-    cd 
-    cd "$@"
+    cd; cd "$@"
 }
 
 
@@ -137,7 +136,7 @@ function wacomconfig(){
 }
 
 alias fd="fdfind"
-alias v="vim"
+alias v="nvim"
 alias p="python3"
 alias grep="grep --color=auto"
 
@@ -165,5 +164,13 @@ alias -s js=vi
 alias nnn='nnn -e'
 export NNN_PLUG='f:finder;o:fzopen;d:diffs;n:nuke;p:pdfview;v:imgview;c:fzcd;z:preview-tui'
 export NNN_FIFO='/tmp/nnn.fifo'
+
+#History variables
+export HISTFILE=~/.zsh_history
+export HISTFILESIZE=1000000000
+export HISTSIZE=1000000000
+setopt EXTENDED_HISTORY
+
+# grip es el programa que pasa de markdown a pdf
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
