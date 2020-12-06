@@ -130,10 +130,10 @@ function cdr(){
 }
 
 
-function wacomconfig(){
-    xsetwacom set "Wacom One by Wacom S Pen stylus" Rotate half 
-    xsetwacom set "Wacom One by Wacom S Pen stylus" Button 3 key "ctrl z"
-}
+#function wacomconfig(){
+    #xsetwacom set "Wacom One by Wacom S Pen stylus" Rotate half 
+    #xsetwacom set "Wacom One by Wacom S Pen stylus" Button 3 key "ctrl z"
+#}
 
 alias fd="fdfind"
 alias v="nvim"

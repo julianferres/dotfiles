@@ -1,0 +1,10 @@
+#!/usr/bin/zsh
+
+# Reverse wacom orientation (left-handed)
+# And assign Ctrl-Z to one of the stylus buttons
+
+xsetwacom set "Wacom One by Wacom S Pen stylus" Rotate half 
+xsetwacom set "Wacom One by Wacom S Pen stylus" Button 3 key "ctrl z"
+
+
+
