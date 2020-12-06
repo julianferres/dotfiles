@@ -101,7 +101,7 @@ source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
     export EDITOR='vim'
 else
-    export EDITOR='mvim'
+    export EDITOR='nvim'
 fi
 
 # Compilation flags
@@ -153,6 +153,7 @@ alias gdot="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
 alias ohmyzsh="vi ~/.oh-my-zsh"
 alias open="xdg-open"
 alias ccat='pygmentize -g -O style=monokai'
+alias goqtile='cd ~/.config/qtile'
 
 #Add automatic vim open to certain file
 alias -s cpp=vi
@@ -162,14 +163,17 @@ alias -s js=vi
 
 #nnn config
 alias nnn='nnn -e'
-export NNN_PLUG='f:finder;o:fzopen;d:diffs;n:nuke;p:pdfview;v:imgview;c:fzcd;z:preview-tui'
-export NNN_FIFO='/tmp/nnn.fifo'
+export NNN_FIFO=/tmp/nnn.fifo
+export NNN_PLUG='f:finder;o:fzopen;d:diffs;n:nuke;p:pdfview;c:fzcd;v:preview-tui;z:preview-kitty'
+export NNN_COLORS='1234'
+export NNN_FCOLORS='c1e2272e006033f7c6d6abc4'
 
 #History variables
-export HISTFILE=~/.zsh_history
 export HISTFILESIZE=1000000000
 export HISTSIZE=1000000000
 setopt EXTENDED_HISTORY
+
+export TERMINAL=tilix
 
 # grip es el programa que pasa de markdown a pdf
 

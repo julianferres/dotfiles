@@ -49,7 +49,7 @@ endif
 %.out: % # Cancel the builtin rule
 
 __test_%: %.res %.out
-	colordiff -ys --suppress-common-lines $*.res $*.out
+	colordiff -ys $*.res $*.out
 
 runs: $(patsubst %,%.res,$(CASES))
 

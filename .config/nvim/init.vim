@@ -6,6 +6,8 @@ set showmatch           " highlight matching parentheses / brackets [{()}]
 set laststatus=2        " always show statusline (even with only single window)
 set ruler               " show line and column number of the cursor on right side of statusline
 set visualbell 
+set encoding=UTF-8
+
 set rtp+=~/.fzf
 source ~/.fzf/plugin/fzf.vim
 
@@ -88,30 +90,22 @@ set clipboard=unnamedplus
 """" Plugins
 
 call plug#begin()
-"Plug 'morhetz/gruvbox'
-Plug 'ap/vim-css-color'
-Plug 'mhinz/vim-startify'
 "Plug 'jiangmiao/auto-pairs'
-Plug 'mcchrish/nnn.vim', { 'branch': 'rewrite' }
-Plug 'SirVer/ultisnips'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'easymotion/vim-easymotion'
-Plug 'tpope/vim-surround'
-Plug 'pR0Ps/molokai-dark'
+"Plug 'morhetz/gruvbox'
 "Plug 'tpope/vim-fugitive'
+Plug 'SirVer/ultisnips'
+Plug 'ap/vim-css-color'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-
 Plug 'junegunn/fzf.vim'
 Plug 'mbbill/undotree'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'mcchrish/nnn.vim', { 'branch': 'rewrite' }
+Plug 'mhinz/vim-startify'
 Plug 'mxw/vim-jsx'
-Plug 'preservim/nerdcommenter'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'pR0Ps/molokai-dark'
 Plug 'pangloss/vim-javascript'
-Plug 'zxqfl/tabnine-vim'
-Plug 'skywind3000/asyncrun.vim'
-Plug 'tpope/vim-unimpaired'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'branch': 'release/1.x',
@@ -131,6 +125,14 @@ Plug 'prettier/vim-prettier', {
     \ 'ruby',
     \ 'html',
     \ 'swift' ] }
+Plug 'preservim/nerdcommenter'
+Plug 'ryanoasis/vim-devicons'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'zxqfl/tabnine-vim'
 call plug#end()
 
 so ~/.vim/plugins.vim
@@ -225,8 +227,9 @@ hi diffRemoved cterm=bold ctermbg=NONE ctermfg=NONE
 
 hi LineNr ctermbg=NONE guibg=NONE
 hi cursorLineNr cterm=NONE ctermfg=DarkBlue
-hi Pmenu ctermbg=236 guibg=darkgray
-hi signcolumn ctermbg=NONE
+hi Pmenu ctermbg=236 guibg=darkgray guibg=#1c1c1c
+hi signcolumn ctermbg=NONE guibg=NONE
+hi TabLineFill cterm=NONE
 
 " Startify
 "
