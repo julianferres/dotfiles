@@ -1,0 +1,6 @@
+
+primary.hs:13:19: error:
+    lexical error in string/character literal at character '\62959'
+   |
+13 |         Run Date "  %d %b %Y %H:%M " "date" 600,
+   |                   ^

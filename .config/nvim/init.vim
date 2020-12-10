@@ -225,6 +225,7 @@ set signcolumn=yes
 hi diffAdded cterm=bold ctermbg=NONE ctermfg=NONE
 hi diffRemoved cterm=bold ctermbg=NONE ctermfg=NONE
 
+hi normal cterm=bold ctermbg=NONE ctermfg=NONE
 hi LineNr ctermbg=NONE guibg=NONE
 hi cursorLineNr cterm=NONE ctermfg=DarkBlue
 hi Pmenu ctermbg=236 guibg=darkgray guibg=#1c1c1c
