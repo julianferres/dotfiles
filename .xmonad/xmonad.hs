@@ -9,6 +9,7 @@ import XMonad.Actions.CycleWS (nextScreen, prevScreen)
 import XMonad.Actions.MouseResize
 import XMonad.Actions.WithAll (sinkAll)
 import XMonad.Actions.UpdatePointer
+import XMonad.Config.Gnome
 
 -- Hooks
 import XMonad.Hooks.DynamicLog (PP (..), dynamicLogWithPP, shorten, wrap, xmobarColor, xmobarPP)
@@ -58,10 +59,9 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 
 myStartupHook :: X ()
 myStartupHook = do
-    spawnOnce "trayer --edge top  --monitor 1 --margin 10 --widthtype pixel --width 35 --heighttype pixel --height 22 --align right --transparent true --alpha 0 --tint 0x292d3e --iconspacing 5 --distance 5 &"
+    spawnOnce "trayer --edge top  --monitor 1 --margin 10 --widthtype pixel --width 40 --heighttype pixel --height 22 --align right --transparent true --alpha 0 --tint 0x292d3e --iconspacing 5 --distance 5 &"
     spawnOnce "/home/julian/.xmonad/autostart.sh &"
     setWMName "LG3D"
-
 
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
@@ -116,7 +116,7 @@ xmobarEscape = concatMap doubleLts
 
 myWorkspaces :: [String]
 myWorkspaces = clickable . (map xmobarEscape)
-    $ ["dev", "www", "term", "misc"]
+    $ ["term", "www", "dev", "misc"]
   where
     clickable l = ["<action=xdotool key super+" ++ show (i) ++ "> " ++ ws ++ "</action>" | (i, ws) <- zip [1 .. 4] l]
 
@@ -138,8 +138,11 @@ myKeys =
     ("M-q", kill1),
     -- Restart xmonad
     ("M-S-r", spawn "xmonad --recompile; xmonad --restart"),
+    -- Suspend system
+    ("M-S-s", spawn "systemctl suspend"),
     -- Quit xmonad
     ("M-S-e", io exitSuccess),
+
 
     ----------------- Floating windows -----------------
 
@@ -178,7 +181,7 @@ myKeys =
     -- Window nav
     ("M-S-m", spawn "rofi -show"),
     -- Browser
-    ("M-b", spawn "firefox"),
+    ("M-b", spawn "brave-browser"),
     -- File explorer
     ("M-e", spawn "pcmanfm"),
     -- Terminal
