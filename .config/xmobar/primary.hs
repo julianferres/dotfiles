@@ -16,16 +16,17 @@ Config {
         Run Cpu ["-t", " (<total>%)","-H","50","--high","red"] 150,
         Run Memory ["-t", "  <used>M"] 150,
         Run Com "brightness" [] "brightness" 10,
-        Run Com "bash" ["-c", "checkupdates | wc -l"] "updates" 3000,
+        Run Com "bash" ["-c", "apt list --upgradable | sed '1d' | wc -l"] "updates" 3000,
         Run Com "/home/julian/.config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 600,
         Run UnsafeStdinReader
     ],
     alignSep = "}{",
-    template = "<fc=#b303ff>   </fc>%UnsafeStdinReader% }{ \
-        --\<fc=#e1acff> %updates% </fc>\
-        \<fc=#FF5555> %memory% </fc>\
+    template = "\
+        \<action=`dmenu_run -p 'dmenu' -h 25 -sb '#4A4F68' -nf '#c792ea' -nb '#192d3e' -sf '#c3e88d' -fn 'UbuntuMono Nerd Font:weight=bold:pixelsize=16' -y 4 -x 4 -z 1358`><fc=#b303ff>   </fc></action>%UnsafeStdinReader% }{ \
+        --\<action=`alacritty -e sudo apt upgrade` button=1><fc=#e1acff> %updates% </fc></action>\
+        \<action=`alacritty -e htop` button=1><fc=#FF5555> %memory% </fc></action>\
         \<fc=#FFB86C> %cpu% </fc>\
-        \<fc=#FDFD96> %brightness%</fc>\
+        \<action=`light -A 5` button=14><action=`light -U 5` button=35><fc=#FDFD96> %brightness%</fc></action></action>\
         \<fc=#c3e88d> %battery%</fc>\
         \<fc=#82AAFF> %volume% </fc>\
         \<fc=#8BE9FD> %date% </fc>\
