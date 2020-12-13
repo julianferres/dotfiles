@@ -9,7 +9,6 @@ import XMonad.Actions.CycleWS (nextScreen, prevScreen)
 import XMonad.Actions.MouseResize
 import XMonad.Actions.WithAll (sinkAll)
 import XMonad.Actions.UpdatePointer
-import XMonad.Config.Gnome
 
 -- Hooks
 import XMonad.Hooks.DynamicLog (PP (..), dynamicLogWithPP, shorten, wrap, xmobarColor, xmobarPP)
@@ -38,6 +37,7 @@ import XMonad.Layout.ThreeColumns
 import qualified XMonad.Layout.ToggleLayouts as T (ToggleLayout (Toggle), toggleLayouts)
 import XMonad.Layout.WindowArranger (WindowArrangerMsg (..), windowArrange)
 import qualified XMonad.StackSet as W
+import qualified Data.Map as M
 
 -- Utilities
 import XMonad.Util.EZConfig(additionalKeysP, removeKeysP)
@@ -59,7 +59,7 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 
 myStartupHook :: X ()
 myStartupHook = do
-    spawnOnce "trayer --edge top  --monitor 1 --margin 10 --widthtype pixel --width 40 --heighttype pixel --height 22 --align right --transparent true --alpha 0 --tint 0x292d3e --iconspacing 5 --distance 5 &"
+    spawnOnce "trayer --edge top  --monitor 1 --widthtype request --heighttype pixel --margin 10 --height 22 --align right --transparent true --alpha 0 --tint 0x292d3e --iconspacing 5 --distance 5 &"
     spawnOnce "/home/julian/.xmonad/autostart.sh &"
     setWMName "LG3D"
 
@@ -69,6 +69,13 @@ mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 -- Single window with no gaps
 mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
+
+
+-- Toggle float function
+toggleFloat w = windows (\s -> if M.member w (W.floating s)
+                            then W.sink w s
+                            else (W.float w (W.RationalRect (1/6) (1/6) (4/6) (4/6)) s)) -- x y w h of the window
+-- Rational Rect recieve proportion of widht and height of screen where top corner will be, and widht and height of the window itself
 
 -- Layouts definition
 
@@ -147,7 +154,7 @@ myKeys =
     ----------------- Floating windows -----------------
 
     -- Toggles 'floats' layout
-    ("M-f", spawn "nautilus"),
+    ("M-t", withFocused toggleFloat),
 
     ---------------------- Layouts ----------------------
 
@@ -186,7 +193,8 @@ myKeys =
     ("M-e", spawn "pcmanfm"),
     -- Terminal
     ("M-<Return>", spawn myTerminal),
-    -- Redshift
+    -- Graphical File explorer
+    ("M-f", spawn "nautilus"),
     -- Scrot
     ("M-s", spawn "scrot"),
 

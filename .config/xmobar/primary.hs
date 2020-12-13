@@ -16,8 +16,8 @@ Config {
         Run Cpu ["-t", " (<total>%)","-H","50","--high","red"] 150,
         Run Memory ["-t", "  <used>M"] 150,
         Run Com "brightness" [] "brightness" 10,
-        Run Com "bash" ["-c", "apt list --upgradable | sed '1d' | wc -l"] "updates" 3000,
-        Run Com "/home/julian/.config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 600,
+        --Run Com "bash" ["-c", "apt list --upgradable | sed '1d' | wc -l"] "updates" 3000,
+        Run Com "/home/julian/.config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 10,
         Run UnsafeStdinReader
     ],
     alignSep = "}{",

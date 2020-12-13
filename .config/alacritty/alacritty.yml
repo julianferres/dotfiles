@@ -185,12 +185,12 @@ colors:
   # Normal colors
   normal:
     black:   '#333333'
-    red:     '#C4265E'
-    green:   '#86B42B'
-    yellow:  '#B3B42B'
+    red:     '#FF6961'
+    green:   '#77DD77'
+    yellow:  '#FDFD96'
     blue:    '#8BE9FD'
-    magenta: '#8C6BC8'
-    cyan:    '#56ADBC'
+    magenta: '#f2b8d8'
+    cyan:    '#00ffef'
     white:   '#E3E3DD'
   # Bright colors
   bright:
@@ -408,7 +408,6 @@ cursor:
   #
   # See `cursor.style` for available options.
   vi_mode_style: Block
-
   # If this is `true`, the cursor will be rendered as a hollow box when the
   # window is not focused.
   unfocused_hollow: true
