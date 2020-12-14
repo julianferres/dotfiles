@@ -160,13 +160,10 @@ alias -s cpp=vi
 alias -s rs=vi
 alias -s js=vi
 
-
 #nnn config
 alias nnn='nnn -e'
 export NNN_FIFO=/tmp/nnn.fifo
 export NNN_PLUG='f:finder;o:fzopen;d:diffs;n:nuke;p:pdfview;c:fzcd;v:preview-tui;z:preview-kitty'
-export NNN_COLORS='1234'
-export NNN_FCOLORS='c1e2272e006033f7c6d6abc4'
 
 #History variables
 export HISTFILESIZE=1000000000

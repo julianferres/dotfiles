@@ -146,7 +146,7 @@ myKeys =
     -- Restart xmonad
     ("M-S-r", spawn "xmonad --recompile; xmonad --restart"),
     -- Suspend system
-    ("M-S-s", spawn "systemctl suspend"),
+    ("M-S-C-s", spawn "systemctl suspend"),
     -- Quit xmonad
     ("M-S-e", io exitSuccess),
 
@@ -178,6 +178,7 @@ myKeys =
     ("M-C-j", sendMessage MirrorShrink),
     -- Exoand vertical window width
     ("M-C-k", sendMessage MirrorExpand),
+    -- 
 
     -------------------- App configs --------------------
 
@@ -189,14 +190,18 @@ myKeys =
     ("M-S-m", spawn "rofi -show"),
     -- Browser
     ("M-b", spawn "brave-browser"),
-    -- File explorer
-    ("M-e", spawn "pcmanfm"),
+    -- Text Editor
+    ("M-e", spawn "subl"),
     -- Terminal
     ("M-<Return>", spawn myTerminal),
     -- Graphical File explorer
     ("M-f", spawn "nautilus"),
     -- Scrot
-    ("M-s", spawn "scrot"),
+    --("M-s", spawn "scrot"),
+    ("M-s", spawn "scrot ~/Pictures/%Y-%m-%d_%H-%M-%S_screenshot.png"),
+
+    -- File Explorer dmenufm rofi
+    ("M-S-f", spawn "dmenufm"),
 
     --------------------- Hardware ---------------------
 
