@@ -5,9 +5,9 @@ import System.Exit (exitSuccess)
 import System.IO (hPutStrLn)
 import XMonad
 import XMonad.Actions.CopyWindow (kill1)
-import XMonad.Actions.CycleWS (nextScreen, prevScreen)
+import XMonad.Actions.CycleWS (nextScreen, prevScreen, nextWS, prevWS)
 import XMonad.Actions.MouseResize
-import XMonad.Actions.WithAll (sinkAll)
+import XMonad.Actions.WithAll (sinkAll, killAll)
 import XMonad.Actions.UpdatePointer
 
 -- Hooks
@@ -84,7 +84,9 @@ tall = renamed [Replace "tall"]
     $ mySpacing 2
     $ ResizableTall 1 (3 / 100) (1 / 2) []
 
-monocle = renamed [Replace "monocle"] $ limitWindows 20 Full
+monocle = renamed [Replace "monocle"]
+    $ mySpacing 2
+    $ limitWindows 20 Full
 
 grid = renamed [Replace "grid"]
     $ limitWindows 12
@@ -94,7 +96,7 @@ grid = renamed [Replace "grid"]
 
 threeCol = renamed [Replace "threeCol"]
     $ limitWindows 7
-    $ mySpacing' 4
+    $ mySpacing' 2
     $ ThreeCol 1 (3 / 100) (1 / 3)
 
 floats = renamed [Replace "floats"] $ limitWindows 20 simplestFloat
@@ -127,6 +129,27 @@ myWorkspaces = clickable . (map xmobarEscape)
   where
     clickable l = ["<action=xdotool key super+" ++ show (i) ++ "> " ++ ws ++ "</action>" | (i, ws) <- zip [1 .. 4] l]
 
+
+-- Manage Hook
+--
+myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
+myManageHook = composeAll
+     -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
+     -- I'm doing it this way because otherwise I would have to write out the full
+     -- name of my workspaces, and the names would very long if using clickable workspaces.
+     [ title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 1 )
+     , className =? "Gimp"    --> doShift ( myWorkspaces !! 3 )
+     , title =? "Oracle VM VirtualBox Manager"     --> doFloat
+     , title =? "Visual Studio Code" --> doShift ( myWorkspaces !! 2) 
+     , title =? "Telegram" --> doShift ( myWorkspaces !! 3) 
+     , title =? "Discord" --> doShift ( myWorkspaces !! 3) 
+     , title =? "Intellij IDEA" --> doShift ( myWorkspaces !! 2) 
+     , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 3 )
+     , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
+     ]
+
+
+
 myKeys :: [(String, X ())]
 myKeys = 
     [
@@ -141,8 +164,9 @@ myKeys =
     -- Swap focused window with prev window
     ("M-S-k", windows W.swapUp),
     -- Kill window
-    ("M-w", kill1),
     ("M-q", kill1),
+    -- Kill all windows in workspace
+    ("M-S-q", killAll),
     -- Restart xmonad
     ("M-S-r", spawn "xmonad --recompile; xmonad --restart"),
     -- Suspend system
@@ -159,9 +183,13 @@ myKeys =
     ---------------------- Layouts ----------------------
 
     -- Switch focus to next monitor
-    ("M-.", nextScreen),
+    ("M-S-.", nextScreen),
     -- Switch focus to prev monitor
-    ("M-,", prevScreen),
+    ("M-S-,", prevScreen),
+    -- Switch focus to next monitor
+    ("M-.", nextWS),
+    -- Switch focus to prev monitor
+    ("M-,", prevWS),
     -- Switch to next layout
     ("M-<Space>", sendMessage NextLayout),
     -- Switch to first layout
@@ -170,7 +198,7 @@ myKeys =
     ("M-<Tab>", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts),
     -- Toggles noborder
     ("M-S-n", sendMessage $ MT.Toggle NOBORDERS),
-    -- Shrink horizontal window width
+    -- Shrink horizontal window widh
     ("M-S-h", sendMessage Shrink),
     -- Expand horizontal window width
     ("M-S-l", sendMessage Expand),
@@ -183,7 +211,7 @@ myKeys =
     -------------------- App configs --------------------
 
     -- Menu
-    ("M-m", spawn "rofi -show drun"),
+    ("M-n", spawn "rofi -show drun"),
     -- Dmenu
     ("M-S-d", spawn "dmenu_run -p 'dmenu' -h 25 -sb '#4A4F68' -nf '#c792ea' -nb '#192d3e' -sf '#c3e88d' -fn 'UbuntuMono Nerd Font:weight=bold:pixelsize=16' -y 4 -x 4 -z 1358"),
     -- Window nav
@@ -225,7 +253,7 @@ main = do
     xmobarMonitor <- spawnPipe "xmobar -x 1 ~/.config/xmobar/secondary.hs"
     -- Xmonad
     xmonad $ ewmh def {
-        manageHook = (isFullscreen --> doFullFloat) <+> manageDocks <+> insertPosition Below Newer,
+        manageHook = (isFullscreen --> doFullFloat) <+> myManageHook <+> manageDocks <+> insertPosition Below Newer,
         handleEventHook = docksEventHook,
         modMask = myModMask,
         terminal = myTerminal,

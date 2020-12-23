@@ -25,10 +25,10 @@ Config {
         \<action=`dmenu_run -p 'dmenu' -h 25 -sb '#4A4F68' -nf '#c792ea' -nb '#192d3e' -sf '#c3e88d' -fn 'UbuntuMono Nerd Font:weight=bold:pixelsize=16' -y 4 -x 4 -z 1358`><fc=#b303ff>   </fc></action>%UnsafeStdinReader% }{ \
         --\<action=`alacritty -e sudo apt upgrade` button=1><fc=#e1acff> %updates% </fc></action>\
         \<action=`alacritty -e htop` button=1><fc=#FF5555> %memory% </fc></action>\
-        \<fc=#FFB86C> %cpu% </fc>\
+        \<action=`alacritty -e bpytop` button=1><fc=#FFB86C> %cpu% </fc></action>\
         \<action=`light -A 5` button=14><action=`light -U 5` button=35><fc=#FDFD96> %brightness%</fc></action></action>\
         \<fc=#c3e88d> %battery%</fc>\
-        \<fc=#82AAFF> %volume% </fc>\
-        \<fc=#8BE9FD> %date% </fc>\
+        \<action=`pavucontrol` button=1><fc=#82AAFF> %volume% </fc></action>\
+        \<action=`gnome-clocks` button=1><fc=#8BE9FD> %date% </fc></action>\
         \%trayerpad%"
 }
