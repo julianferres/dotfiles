@@ -143,6 +143,8 @@ myManageHook = composeAll
      , title =? "Visual Studio Code" --> doShift ( myWorkspaces !! 2) 
      , title =? "Telegram" --> doShift ( myWorkspaces !! 3) 
      , title =? "Discord" --> doShift ( myWorkspaces !! 3) 
+     , title =? "JetBrains Toolbox" --> doShift ( myWorkspaces !! 3) 
+     , title =? "JetBrains Toolbox" --> doFloat
      , title =? "Intellij IDEA" --> doShift ( myWorkspaces !! 2) 
      , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 3 )
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
@@ -168,9 +170,13 @@ myKeys =
     -- Kill all windows in workspace
     ("M-S-q", killAll),
     -- Restart xmonad
-    ("M-S-r", spawn "xmonad --recompile; xmonad --restart"),
+    ("M-r", spawn "xmonad --recompile; xmonad --restart"),
     -- Suspend system
     ("M-S-C-s", spawn "systemctl suspend"),
+    -- Shutdown system
+    ("M-S-C-e", spawn "shutdown -h now"),
+    -- Reboot
+    ("M-S-C-r", spawn "reboot"),
     -- Quit xmonad
     ("M-S-e", io exitSuccess),
 
