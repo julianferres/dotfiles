@@ -114,14 +114,11 @@ fi
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
-function makefile(){
-    cp ~/CP/templates/problem/Makefile ~/CP/templates/problem/dbg.cpp .
-}
+function makefile(){ cp ~/CP/templates/problem/Makefile .  }
 function plantilla(){
     for problem
-        do cp ~/CP/templates/problem/main.cpp "$problem".cpp
+    do cp ~/CP/templates/problem/main.cpp "${problem%%.*}".cpp
     done
-    cp ~/CP/templates/problem/main.py .
 }
 function mkcdir(){ mkdir -p -- "$1" && cd -P -- "$1" }
 function rmd(){ sudo rm -r $@ }
@@ -129,14 +126,8 @@ function cdr(){
     cd; cd "$@"
 }
 
-
-#function wacomconfig(){
-    #xsetwacom set "Wacom One by Wacom S Pen stylus" Rotate half 
-    #xsetwacom set "Wacom One by Wacom S Pen stylus" Button 3 key "ctrl z"
-#}
-
 alias fd="fdfind"
-alias v="nvim"
+alias v="vim"
 alias p="python3"
 alias grep="grep --color=auto"
 
@@ -152,6 +143,7 @@ alias zshconfig="vi ~/.zshrc"
 alias gdot="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
 alias ohmyzsh="vi ~/.oh-my-zsh"
 alias open="xdg-open"
+alias pip="pip3"
 alias ccat='pygmentize -g -O style=monokai'
 alias goqtile='cd ~/.config/qtile'
 
@@ -160,18 +152,19 @@ alias -s cpp=vi
 alias -s rs=vi
 alias -s js=vi
 
-#nnn config
-alias nnn='nnn -e'
-export NNN_FIFO=/tmp/nnn.fifo
-export NNN_PLUG='f:finder;o:fzopen;d:diffs;n:nuke;p:pdfview;c:fzcd;v:preview-tui;z:preview-kitty'
+
 
 #History variables
-export HISTFILESIZE=1000000000
-export HISTSIZE=1000000000
-setopt EXTENDED_HISTORY
-
-export TERMINAL=tilix
-
 # grip es el programa que pasa de markdown a pdf
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+# Markdown server: grip
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/julian/.sdkman"
+[[ -s "/home/julian/.sdkman/bin/sdkman-init.sh" ]] && source "/home/julian/.sdkman/bin/sdkman-init.sh"
+
+unsetopt PROMPT_SP
+if [ -e /home/julian/.nix-profile/etc/profile.d/nix.sh ]; then . /home/julian/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

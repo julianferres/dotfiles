@@ -5,7 +5,7 @@ import System.Exit (exitSuccess)
 import System.IO (hPutStrLn)
 import XMonad
 import XMonad.Actions.CopyWindow (kill1)
-import XMonad.Actions.CycleWS (nextScreen, prevScreen, nextWS, prevWS)
+import XMonad.Actions.CycleWS (nextScreen, prevScreen, nextWS, prevWS, moveTo, WSType(NonEmptyWS), Direction1D(Next,Prev))
 import XMonad.Actions.MouseResize
 import XMonad.Actions.WithAll (sinkAll, killAll)
 import XMonad.Actions.UpdatePointer
@@ -59,7 +59,7 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 
 myStartupHook :: X ()
 myStartupHook = do
-    spawnOnce "trayer --edge top  --monitor 1 --widthtype request --heighttype pixel --margin 10 --height 22 --align right --transparent true --alpha 0 --tint 0x292d3e --iconspacing 5 --distance 5 &"
+    spawnOnce "trayer --edge top  --monitor 0 --widthtype request --heighttype pixel --margin 10 --height 22 --align right --transparent true --alpha 0 --tint 0x292d3e --iconspacing 5 --distance 5 &"
     spawnOnce "/home/julian/.xmonad/autostart.sh &"
     setWMName "LG3D"
 
@@ -143,7 +143,6 @@ myManageHook = composeAll
      , title =? "Visual Studio Code" --> doShift ( myWorkspaces !! 2) 
      , title =? "Telegram" --> doShift ( myWorkspaces !! 3) 
      , title =? "Discord" --> doShift ( myWorkspaces !! 3) 
-     , title =? "JetBrains Toolbox" --> doShift ( myWorkspaces !! 3) 
      , title =? "JetBrains Toolbox" --> doFloat
      , title =? "Intellij IDEA" --> doShift ( myWorkspaces !! 2) 
      , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 3 )
@@ -186,16 +185,23 @@ myKeys =
     -- Toggles 'floats' layout
     ("M-t", withFocused toggleFloat),
 
-    ---------------------- Layouts ----------------------
 
+    -------------------- Workspaces --------------------
     -- Switch focus to next monitor
-    ("M-S-.", nextScreen),
+    ("M-M1-.", nextScreen),
     -- Switch focus to prev monitor
-    ("M-S-,", prevScreen),
-    -- Switch focus to next monitor
+    ("M-M1-,", prevScreen),
+    -- Switch focus to next workspace
     ("M-.", nextWS),
-    -- Switch focus to prev monitor
+    -- Switch focus to prev workspace
     ("M-,", prevWS),
+    -- Switch  to next non-empty workspace
+    ("M-S-.", moveTo Next NonEmptyWS),
+    -- Switch  to prev non-empty workspace
+    ("M-S-,", moveTo Prev NonEmptyWS),
+
+
+    ---------------------- Layouts ----------------------
     -- Switch to next layout
     ("M-<Space>", sendMessage NextLayout),
     -- Switch to first layout
@@ -223,7 +229,7 @@ myKeys =
     -- Window nav
     ("M-S-m", spawn "rofi -show"),
     -- Browser
-    ("M-b", spawn "brave-browser"),
+    ("M-b", spawn "firefox"),
     -- Text Editor
     ("M-e", spawn "subl"),
     -- Terminal

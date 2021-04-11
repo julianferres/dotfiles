@@ -28,7 +28,7 @@ typedef vector<ii> vii; typedef vector<bool> vb;
 #define all(c) (c).begin(),(c).end()
 #define esta(x,c) ((c).find(x) != (c).end())
 const int INF = 1e9+15; // const ll INF = 2e18;
-const int MOD = 1e9+7; // 998244353
+const int MOD = 1e9+7;  // const int MOD = 998244353;
 const int MAXN  = 2e5+5;
 
 

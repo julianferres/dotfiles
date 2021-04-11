@@ -10,6 +10,7 @@ set encoding=UTF-8
 
 set rtp+=~/.fzf
 source ~/.fzf/plugin/fzf.vim
+source ~/.config/nvim/cp.vim
 
 set noeb
 set novb
@@ -21,8 +22,6 @@ autocmd VimLeave * silent !stty ixon
 """" Key Bindings
 
 " move vertically by visual line (don't skip wrapped lines)
-nmap j gj
-nmap k gk
 nmap E ge
 
 "Ctrl-A Ctrl-C Ctrl-V
@@ -76,9 +75,9 @@ set smartcase
 """" Search settings
 
 set incsearch           " search as characters are entered
-set hlsearch            " highlight matches
 "This unsets the "last search pattern" register by hitting return
-nnoremap <CR> :noh<CR><CR>
+"nnoremap <CR> :noh<CR><CR>
+set nohls
 
 """" Miscellaneous settings that might be worth enabling
 
@@ -86,24 +85,30 @@ set cursorline   " highlight current line
 set background=dark    " configure Vim to use darker colors
 set autoread           " autoreload the file in Vim if it has been changed outside of Vim
 set clipboard=unnamedplus
+set nocompatible              " be iMproved, required
 
 """" Plugins
 
 call plug#begin()
 "Plug 'jiangmiao/auto-pairs'
-"Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 "Plug 'tpope/vim-fugitive'
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'ajh17/vimcompletesme'
+Plug 'sheerun/vim-polyglot'
+Plug 'rstacruz/vim-closer'
+
 Plug 'SirVer/ultisnips'
 Plug 'ap/vim-css-color'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'mbbill/undotree'
 Plug 'mcchrish/nnn.vim', { 'branch': 'rewrite' }
-Plug 'mhinz/vim-startify'
+"Plug 'mhinz/vim-startify'
 Plug 'mxw/vim-jsx'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'pR0Ps/molokai-dark'
 Plug 'pangloss/vim-javascript'
 Plug 'prettier/vim-prettier', {
@@ -127,97 +132,41 @@ Plug 'prettier/vim-prettier', {
     \ 'swift' ] }
 Plug 'preservim/nerdcommenter'
 Plug 'ryanoasis/vim-devicons'
-Plug 'skywind3000/asyncrun.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-"Plug 'zxqfl/tabnine-vim'
+Plug 'zxqfl/tabnine-vim'
 call plug#end()
 
 so ~/.vim/plugins.vim
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
 runtime macros/matchit.vim
 
-" Atajos para easymotion
 let mapleader=" "
-map <Leader>s <Plug>(easymotion-s2)
 
 "fzf
 let $FZF_DEFAULT_OPTS='--reverse'
 "let g:fzf_layout = { 'window' : { 'width': 0.8, 'height': 0.8 } }
 
 """""" Competitive programming shorcuts
-autocmd filetype cpp nnoremap <F8> :w <bar> AsyncRun g++ -std=c++17 -DLOCAL -Wall -g -O2 -Wconversion -Wshadow -Wextra % -o %:r && ./%:r <CR>
+autocmd filetype cpp nnoremap <F8> :w <bar> ! g++ -std=c++17 -DLOCAL -Wall -g -O2 -Wconversion -Wshadow -Wextra % -o %:r && echo "Running..." && ./%:r <CR>
 filetype plugin indent on    " required
 
-autocmd filetype python nnoremap <F8> :w <bar> AsyncRun python3 % <CR>
+autocmd filetype python nnoremap <F8> :w <bar> !python3 % <CR>
 
 set showcmd
-let g:ycm_show_diagnostics_ui = 0
-let g:syntastic_check_on_write = 1
-let g:syntastic_warning_symbol = '·'
-let g:syntastic_error_symbol = '>'
-let g:syntastic_enable_signs=1
-let g:coc_disable_startup_warning = 1
 let g:UltiSnipsExpandTrigger = '<f5>' 
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-autocmd CursorHold * silent call CocActionAsync('highlight')
-nmap <leader>rn <Plug>(coc-rename)
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>ac  <Plug>(coc-codeaction)
-nmap <leader>qf  <Plug>(coc-fix-current)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-"Async
-let g:asyncrun_open=10
 
 "Comandos de guardar
 nmap <c-s> :w<cr>
 imap <c-s> <Esc>:w<cr>
 
-nmap <leader>gj :diffget //3<CR>
-nmap <leader>gf :diffget //2<CR>
-nmap <leader>gs :G<CR>
-nmap <leader>gc :Gcommit<CR>
-nmap <leader>gp :Gpush<CR>
-nmap <leader>gl :Gpull<CR>
-
-"colorscheme gruvbox
-"let g:gruvbox_contrast_dark='hard'
-colorscheme molokai-dark
-let g:airline_theme='molokai'
+colorscheme gruvbox
+let g:gruvbox_contrast_dark='hard'
+"colorscheme molokai-dark
+"let g:airline_theme='molokai'
 
 set signcolumn=yes
 
@@ -225,7 +174,7 @@ set signcolumn=yes
 hi diffAdded cterm=bold ctermbg=NONE ctermfg=NONE
 hi diffRemoved cterm=bold ctermbg=NONE ctermfg=NONE
 
-hi normal cterm=bold ctermbg=NONE ctermfg=NONE
+hi normal ctermbg=232 ctermfg=NONE
 hi LineNr ctermbg=NONE guibg=NONE
 hi cursorLineNr cterm=NONE ctermfg=DarkBlue
 hi Pmenu ctermbg=236 guibg=darkgray guibg=#1c1c1c
@@ -245,12 +194,31 @@ let g:startify_bookmarks = [
             \ { 'c': '~/.config/qtile' },
             \ { 'i': '~/.config/nvim/init.vim' },
             \ { 'z': '~/.zshrc' },
+            \ { 'x': '~/.xmonad/xmonad.hs' },
+            \ { 'b': '~/.config/xmobar/primary.hs' },
             \ ]
 
 " Floating window (neovim latest and vim with patch 8.2.191)
-let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
 
-let g:nnn#action = {
-      \ '<c-t>': 'tab split',
-      \ '<c-x>': 'split',
-      \ '<c-v>': 'vsplit' }
+if executable('clangd')
+    augroup lsp_clangd
+        autocmd!
+        autocmd User lsp_setup call lsp#register_server({
+                    \ 'name': 'clangd',
+                    \ 'cmd': {server_info->['clangd']},
+                    \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+                    \ })
+        autocmd FileType c setlocal omnifunc=lsp#complete
+        autocmd FileType cpp setlocal omnifunc=lsp#complete
+        autocmd FileType objc setlocal omnifunc=lsp#complete
+        autocmd FileType objcpp setlocal omnifunc=lsp#complete
+    augroup end
+endif
+
+hi LspErrorText ctermfg=9
+hi LspWarningText ctermfg=214
+hi LspInformationText ctermfg=21
+hi LspInformationHighlight ctermbg=21 ctermfg=white
+hi LspWarningHighlight ctermbg=94 ctermfg=white
+
+nnoremap <Leader>t :sp<bar>term<cr><c-w>J:resize9<cr>
