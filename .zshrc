@@ -120,6 +120,11 @@ function plantilla(){
     do cp ~/CP/templates/problem/main.cpp "${problem%%.*}".cpp
     done
 }
+function plantilla_py(){
+    for problem
+    do cp ~/CP/templates/problem/main.py "${problem%%.*}".py
+    done
+}
 function mkcdir(){ mkdir -p -- "$1" && cd -P -- "$1" }
 function rmd(){ sudo rm -r $@ }
 function cdr(){ 

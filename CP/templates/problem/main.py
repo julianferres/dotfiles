@@ -9,10 +9,6 @@ for line in sys.stdin:
     ...
 """
 
-from collections import *
-from heapq import *
-from math import *
-
 """
 def fastio():
     import sys
@@ -26,3 +22,5 @@ def fastio():
 
 fastio()
 """
+
+
