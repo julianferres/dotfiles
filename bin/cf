@@ -1,23 +1,22 @@
 #! /usr/bin/env python3
 
-import os
-import subprocess
-import argparse
+import argparse, os, subprocess, sys
 
 CXX = "g++"
-CXX_FLAGS = "-std=c++17 -O2 -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -Wno-unused-result -Wno-sign-conversion"
-DEBUG_FLAGS = "-D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fstack-protector -D_FORTIFY_SOURCE=2"
+CXX_FLAGS = "-std=c++17 -O2 -g -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -Wno-unused-result -Wno-sign-conversion -D_GLIBCXX_DEBUG"
+DEBUG_FLAGS = "-D_GLIBCXX_DEBUG_PEDANTIC -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fstack-protector -D_FORTIFY_SOURCE=2"
 LOCAL_FLAGS = "-DLOCAL"
 
 # Parse problem name as cli parameters
 parser = argparse.ArgumentParser(
     description='Compiler and runner script for Competitive Programming')
-parser.add_argument('action', type=str, help='Wheter we want to compile, run, exec or test against .in and .out files')
+parser.add_argument('action', type=str, help='Wheter we want to run or test against .in and .out files')
 parser.add_argument('problem', type=str, help='A required integer positional argument')
 parser.add_argument('--debug', action='store_true', help='Indicates if we want to compile with DEBUG_FLAGS')
+parser.add_argument('-o', type=str)
 args = parser.parse_args()
 
-def compile():
+def compile(name = None):
     compile_command = " ".join([CXX, CXX_FLAGS, LOCAL_FLAGS])
     compile_command += (" " + DEBUG_FLAGS if args.debug else "") + " -o {} {}.cpp".format(args.problem, args.problem)
     print(compile_command)
@@ -58,20 +57,24 @@ def test():
 
 	return 1 # Corrio todos los test satisfactioriamente
 
+try:
+    if args.action == 'run':
+        if(not compile() or not run()):
+            print("Error de compilacion")
+    elif args.action == 'compile':
+        if(not compile()):
+            print("Error de compilacion")
+    elif args.action == 'exec':
+        run()
+    elif args.action == 'test':
+        if(not compile()):
+            print("Error de compilacion")
+        if(not test()):
+            print("Algún test falló!")
+    else:
+        print("Acción no encontrada")
 
-if args.action == 'run':
-	if(not compile() or not run()):
-		print("Error de compilacion")
-elif args.action == 'compile':
-	if(not compile()):
-		print("Error de compilacion")
-elif args.action == 'exec':
-	run()
-elif args.action == 'test':
-	if(not compile() or not test()):
-		print("Error de compilacion")
-else:
-    print("Action not found :(")
-
-
+except KeyboardInterrupt:
+    print("Se interrumpio la ejecucion")
+    sys.exit()
 

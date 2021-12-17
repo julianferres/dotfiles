@@ -1,1 +1,0 @@
-/home/julian/.config/nvim/init.vim
