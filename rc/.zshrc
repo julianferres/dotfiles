@@ -72,17 +72,18 @@ COMPLETION_WAITING_DOTS="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     alias-tips
+    autojump
     colored-man-pages
     colorize
     docker
     docker-compose
     fd
-    web-search
     fzf
     fzf-tab
     git
     history-substring-search
     tmux
+    web-search
     z
     zsh-autosuggestions
     zsh-interactive-cd
