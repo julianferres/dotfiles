@@ -88,20 +88,6 @@ monocle = renamed [Replace "monocle"]
     $ mySpacing 2
     $ limitWindows 20 Full
 
-{-
-grid = renamed [Replace "grid"]
-    $ limitWindows 12
-    $ mySpacing 2
-    $ mkToggle (single MIRROR)
-    $ Grid (16 / 10)
-
-
-threeCol = renamed [Replace "threeCol"]
-    $ limitWindows 7
-    $ mySpacing' 2
-    $ ThreeCol 1 (3 / 100) (1 / 3)
--}
-
 floats = renamed [Replace "floats"] $ limitWindows 20 simplestFloat
 
 -- Layout hook
@@ -170,7 +156,7 @@ myKeys =
     -- Kill all windows in workspace
     ("M-S-q", killAll),
     -- Restart xmonad
-    ("M-r", spawn "xmonad --recompile; xmonad --restart"),
+    ("M-C-r", spawn "xmonad --recompile; xmonad --restart"),
     -- Suspend system
     ("M-S-C-s", spawn "systemctl suspend"),
     -- Shutdown system
@@ -224,14 +210,14 @@ myKeys =
     -------------------- App configs --------------------
 
     -- Menu
-    ("M-n", spawn "rofi -show drun"),
+    ("M-m", spawn "rofi -show drun"),
     -- Dmenu
     ("M-S-d", spawn "dmenu_run -p 'dmenu' -h 29 -sb '#4A4F68' -nf '#c792ea' -nb '#192d3e' -sf '#c3e88d' -fn 'UbuntuMono Nerd Font:weight=Bold:pixelsize=15'"),
     -- Window nav
     --UbuntuMono Nerd Font:weight=bold:pixelsize=16
     ("M-S-m", spawn "rofi -show"),
     -- Browser
-    ("M-b", spawn "firefox"),
+    ("M-b", spawn "brave-browser"),
     -- Text Editor
     ("M-e", spawn "subl"),
     -- Terminal
@@ -263,8 +249,8 @@ myKeysR = ["M-S-q", "M-q"]
 main :: IO ()
 main = do
     -- Xmobar
-    xmobarLaptop <- spawnPipe "xmobar -x 0 ~/.config/xmobar/primary.hs"
-    xmobarMonitor <- spawnPipe "xmobar -x 1 ~/.config/xmobar/secondary.hs"
+    xmobarLaptop <- spawnPipe "xmobar -x 1 ~/.config/xmobar/primary.hs"
+    xmobarMonitor <- spawnPipe "xmobar -x 0 ~/.config/xmobar/secondary.hs"
     -- Xmonad
     xmonad $ ewmh def {
         manageHook = (isFullscreen --> doFullFloat) <+> myManageHook <+> manageDocks <+> insertPosition Below Newer,
@@ -279,7 +265,7 @@ main = do
         focusedBorderColor = myFocusColor,
         -- Log hook
         logHook = workspaceHistoryHook <+> dynamicLogWithPP xmobarPP {
-            ppOutput = \x -> hPutStrLn xmobarLaptop x >> hPutStrLn xmobarMonitor x,
+            ppOutput = \x -> hPutStrLn xmobarMonitor x >> hPutStrLn xmobarLaptop x,
             -- Current workspace in xmobar
             ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" " ]",
             -- Visible but not current workspace

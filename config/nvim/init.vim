@@ -149,9 +149,9 @@ imap <c-s> <Esc>:w<cr>
 let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 
-"let g:vim_monokai_tasty_italic = 1
-"colorscheme vim-monokai-tasty
+let g:vim_monokai_tasty_italic = 1
+colorscheme vim-monokai-tasty
 
-"let g:airline_theme='monokai_tasty'
+let g:airline_theme='monokai_tasty'
 
 

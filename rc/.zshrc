@@ -8,8 +8,8 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
-#ZSH_THEME="random"
+#ZSH_THEME="robbyrussell"
+ZSH_THEME="random"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -124,7 +124,7 @@ function plantilla_py(){
 }
 function rmd(){ sudo rm -r $@ }
 
-alias v="vim"
+alias v="nvim"
 alias p="python3"
 alias grep="grep --color=auto"
 
