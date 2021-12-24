@@ -85,12 +85,13 @@ set clipboard=unnamedplus
 
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
-Plug 'SirVer/ultisnips'
+Plug 'p00f/cphelper.nvim'
 Plug 'vim-airline/vim-airline'
 Plug 'morhetz/gruvbox'
 Plug 'easymotion/vim-easymotion'
 Plug 'patstockwell/vim-monokai-tasty'
 Plug 'github/copilot.vim'
+Plug 'nvim-lua/plenary.nvim'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -138,8 +139,6 @@ filetype plugin indent on    " required
 
 autocmd filetype python nnoremap <F8> :w <bar> !python3 % <CR>
 
-set showcmd
-let g:UltiSnipsExpandTrigger = '<f5>' 
 
 "Comandos de guardar
 nmap <c-s> :w<cr>

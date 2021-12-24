@@ -9,7 +9,8 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 #ZSH_THEME="robbyrussell"
-ZSH_THEME="random"
+#ZSH_THEME="random"
+ZSH_THEME="pygmalion-virtualenv"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -193,12 +194,6 @@ fi
 if [ -s ~/.Xmodmap ]; then
     xmodmap ~/.Xmodmap
 fi
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/julian/google-cloud-sdk-359.0.0-linux-x86_64/google-cloud-sdk/path.zsh.inc' ]; then . '/home/julian/google-cloud-sdk-359.0.0-linux-x86_64/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/julian/google-cloud-sdk-359.0.0-linux-x86_64/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/julian/google-cloud-sdk-359.0.0-linux-x86_64/google-cloud-sdk/completion.zsh.inc'; fi
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
