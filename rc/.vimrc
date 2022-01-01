@@ -154,4 +154,5 @@ colorscheme vim-monokai-tasty
 
 let g:airline_theme='monokai_tasty'
 
-
+hi Normal ctermbg=NONE guibg=#000000
+hi LineNr ctermbg=NONE guibg=#000000
