@@ -113,17 +113,16 @@ export EDITOR='vim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 function makefile(){ cp ~/CP/templates/problem/Makefile .  }
-function plantilla(){
+function estufa(){
     for problem
     do cp ~/CP/templates/problem/main.cpp "${problem%%.*}".cpp
     done
 }
-function plantilla_py(){
+function estufapy(){
     for problem
     do cp ~/CP/templates/problem/main.py "${problem%%.*}".py
     done
 }
-function rmd(){ sudo rm -r $@ }
 
 alias v="nvim"
 alias p="python3"
@@ -200,3 +199,7 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export PATH=/opt/apache-maven-3.8.4/bin:$PATH
 export PATH=/home/julian/Applications:$PATH
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
