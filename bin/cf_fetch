@@ -1,0 +1,75 @@
+#! /usr/bin/env python3
+
+import http.server
+import json
+import signal
+import subprocess
+from colored import fg
+
+PORT = 10046
+TEMPLATE_FILE = '/home/julian/CP/templates/problem/main.cpp'
+
+# Returns unmarshalled or None
+def listen_once(*, timeout=None):
+    json_data = None
+
+    class CompetitiveCompanionHandler(http.server.BaseHTTPRequestHandler):
+        def do_POST(self):
+            nonlocal json_data
+            json_data = json.load(self.rfile)
+
+    with http.server.HTTPServer(('127.0.0.1', PORT), CompetitiveCompanionHandler) as server:
+        server.timeout = timeout
+        server.handle_request()
+
+    return json_data
+
+def write_to_file(path, content):
+    with open(path, 'w') as f:
+        print(f"{fg('magenta')}{path} created")
+        f.write(content)
+
+def copy_template(problem_name):
+    print(f'{fg("yellow")}Copying template to "{problem_name}.cpp"')
+    subprocess.run(['cp', TEMPLATE_FILE, f'{problem_name}.cpp'])
+
+def create_tests(tests, problem_name):
+    for (i, test) in enumerate(tests):
+        test_name = f'{problem_name}{i}'
+        # write test input to file
+        write_to_file(f'{test_name}.in', test['input'])
+        # write test output to file
+        write_to_file(f'{test_name}.out', test['output'])
+
+
+def main():
+    print('Waiting for problems on port 10046')
+    print('Press Ctrl+C to exit.')
+
+    while True:
+        body = listen_once()
+
+        if body is None:
+            print('No data received')
+            continue
+
+        problem_name = body['url'].split('/').pop()
+        problem_complete_name = body['name']
+
+        print(f"{fg('green')}================")
+
+
+        print(f'{fg("green")}Received POST request for "{problem_complete_name}"');
+        print(f'{fg("green")}Creating tests for problem...')
+
+        create_tests(body['tests'], problem_name)
+
+        copy_template(problem_name)
+
+def sigint_handler(signal, frame):
+    print(f'{fg("cyan")}\nHappy coding! ⌨');
+    exit(0)
+
+if __name__ == '__main__':
+    signal.signal(signal.SIGINT, sigint_handler)
+    main()

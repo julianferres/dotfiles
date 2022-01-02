@@ -1,6 +1,10 @@
 #! /usr/bin/env python3
 
-import argparse, os, subprocess, sys
+import argparse
+import os
+import subprocess
+import sys
+from colored import fg
 
 CXX = "g++"
 CXX_FLAGS = "-std=c++17 -O2 -g -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -Wno-unused-result -Wno-sign-conversion -D_GLIBCXX_DEBUG"
@@ -10,71 +14,83 @@ LOCAL_FLAGS = "-DLOCAL"
 # Parse problem name as cli parameters
 parser = argparse.ArgumentParser(
     description='Compiler and runner script for Competitive Programming')
-parser.add_argument('action', type=str, help='Wheter we want to run or test against .in and .out files')
-parser.add_argument('problem', type=str, help='A required integer positional argument')
-parser.add_argument('--debug', action='store_true', help='Indicates if we want to compile with DEBUG_FLAGS')
+parser.add_argument('action', type=str,
+                    help='Wheter we want to run or test against .in and .out files')
+parser.add_argument('problem', type=str,
+                    help='A required integer positional argument')
+parser.add_argument('--debug', action='store_true',
+                    help='Indicates if we want to compile with DEBUG_FLAGS')
 parser.add_argument('-o', type=str)
 args = parser.parse_args()
 
-def compile(name = None):
-    compile_command = " ".join([CXX, CXX_FLAGS, LOCAL_FLAGS])
-    compile_command += (" " + DEBUG_FLAGS if args.debug else "") + " -o {} {}.cpp".format(args.problem, args.problem)
-    print(compile_command)
 
-    process = subprocess.Popen(compile_command, shell = True)
+def compile(name=None):
+    compile_command = " ".join([CXX, CXX_FLAGS, LOCAL_FLAGS])
+    compile_command += (" " + DEBUG_FLAGS if args.debug else "") + \
+                        " -o {} {}.cpp".format(args.problem, args.problem)
+    print(fg('cyan') + compile_command)
+
+    process = subprocess.Popen(compile_command, shell=True)
     output, error = process.communicate()
     return process.returncode == 0
 
-def run(test_name = None):
-	
-	test_to_run = " < {}.in > {}.res".format(test_name, test_name) if test_name is not None else ""
-	run_command = "time -f '  real\t%es\n  user\t%Us\n  sys\t%Ss\n  mem\t%MKB' ./{}".format(args.problem)
-	run_command += test_to_run
 
-	print("time ./{}".format(args.problem) + test_to_run)
+def run(test_name=None):
+    print(f"{fg('yellow')}Running {test_name}")
+    test_to_run = " < {}.in > {}.res".format(
+        test_name, test_name) if test_name is not None else ""
+    run_command = "time -f '  real\t%es\n  user\t%Us\n  sys\t%Ss\n  mem\t%MKB' ./{}".format(
+        args.problem)
+    run_command += test_to_run
+    print("time ./{}".format(args.problem) + test_to_run)
 
-	process = subprocess.Popen(run_command, shell = True)
-	output, error = process.communicate()
-	return process.returncode == 0
-
+    process = subprocess.Popen(run_command, shell=True)
+    output, error = process.communicate()
+    return process.returncode == 0
 
 
 def test():
-	folder_files = [f for f in os.listdir('.') if os.path.isfile(f)]
-	folder_files.sort()
+    folder_files = [f for f in os.listdir('.') if os.path.isfile(f)]
+    folder_files.sort()
 
-	for f in folder_files:
-		if(f[-3:] == '.in' and f[:len(args.problem)] == args.problem): #test input for this file
-			test_name = f[:-3]
-			if(test_name + '.out' in folder_files):
-				run(test_name) # Run this test
-				process = subprocess.Popen("colordiff -ys {}.res {}.out".format(test_name, test_name), shell = True)
-				output, error = process.communicate()
-				if(process.returncode):
-					return process.returncode == 0
-			else:
-				print("Output not found for {}".format(f))
+    for f in folder_files:
+		# test input for this file
+        if f[-3:] != '.in' or f[:len(args.problem)] != args.problem:
+            continue
+        test_name = f[:-3]
+        if(test_name + '.out' in folder_files):
+            run(test_name) # Run this test
+            process = subprocess.Popen("colordiff -ys {}.res {}.out".format(test_name, test_name), shell = True)
+            output, error = process.communicate()
+            if(process.returncode):
+                return process.returncode == 0
+        else:
+            print("Output not found for {}".format(f))
 
-	return 1 # Corrio todos los test satisfactioriamente
+    print(fg('green') + "All tests passed")
+    return 1 # Corrio todos los test satisfactioriamente
+
+red_color = fg('red')
+yellow_color = fg('yellow')
 
 try:
     if args.action == 'run':
         if(not compile() or not run()):
-            print("Error de compilacion")
+            print(red_color + "Error de compilacion")
     elif args.action == 'compile':
         if(not compile()):
-            print("Error de compilacion")
+            print(red_color + "Error de compilacion")
     elif args.action == 'exec':
         run()
     elif args.action == 'test':
         if(not compile()):
-            print("Error de compilacion")
+            print(red_color + "Error de compilacion")
         if(not test()):
-            print("Algún test falló!")
+            print(red_color + "Algún test falló!")
     else:
-        print("Acción no encontrada")
+        print(red_color + "Acción no encontrada")
 
 except KeyboardInterrupt:
-    print("Se interrumpio la ejecucion")
+    print(yellow_color + "Se interrumpio la ejecucion")
     sys.exit()
 
