@@ -11,7 +11,6 @@ cp -r ~/.xmonad/* xmonad
 
 # Copy competitive programmign files in CP folder
 cp -r ~/CP/templates/* CP/templates
-cp ~/CP/dorito.jpg CP
 
 # Copy some config files to config
 cp -r ~/.config/nvim config

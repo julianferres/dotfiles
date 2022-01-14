@@ -15,9 +15,9 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
+ZSH_THEME="robbyrussell"
 #ZSH_THEME="random"
-ZSH_THEME="pygmalion-virtualenv"
+#ZSH_THEME="pygmalion-virtualenv"
 #ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
@@ -143,7 +143,8 @@ alias lst="exa -T"
 alias lsr="exa -r"
 
 alias alacrittyconfig="vi ~/.config/alacritty/alacritty.yml"
-alias zshconfig="vi ~/.zshrc"
+alias zshconfig="v ~/.zshrc"
+alias vimconfig="v ~/.vimrc"
 alias ohmyzsh="vi ~/.oh-my-zsh"
 alias open="xdg-open"
 

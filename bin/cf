@@ -78,15 +78,19 @@ try:
         if(not compile() or not run()):
             print(red_color + "Error de compilacion")
     elif args.action == 'compile':
-        if(not compile()):
+        compiled_successfully = compile()
+        if(not compiled_successfully):
             print(red_color + "Error de compilacion")
     elif args.action == 'exec':
         run()
     elif args.action == 'test':
-        if(not compile()):
+        compiled_successfully = compile()
+        if not compiled_successfully:
             print(red_color + "Error de compilacion")
-        if(not test()):
-            print(red_color + "Algún test falló!")
+        else:
+            passed_tests = test()
+            if not passed_tests:
+                print(red_color + "Algunos tests fallaron")
     else:
         print(red_color + "Acción no encontrada")
 

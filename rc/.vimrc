@@ -84,39 +84,20 @@ set clipboard=unnamedplus
 """" Plugins
 
 call plug#begin('~/.vim/plugged')
-Plug 'scrooloose/nerdtree'
-Plug 'SirVer/ultisnips'
-Plug 'vim-airline/vim-airline'
-Plug 'morhetz/gruvbox'
 Plug 'easymotion/vim-easymotion'
-Plug 'patstockwell/vim-monokai-tasty'
 Plug 'github/copilot.vim'
-Plug 'tpope/vim-surround'
+Plug 'hrsh7th/nvim-compe'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'morhetz/gruvbox'
 Plug 'mxw/vim-jsx'
+Plug 'neovim/nvim-lspconfig'
+Plug 'patstockwell/vim-monokai-tasty'
 Plug 'preservim/nerdcommenter'
-"Plug 'zxqfl/tabnine-vim'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'branch': 'release/1.x',
-  \ 'for': [
-    \ 'javascript',
-    \ 'typescript',
-    \ 'css',
-    \ 'less',
-    \ 'scss',
-    \ 'json',
-    \ 'graphql',
-    \ 'markdown',
-    \ 'vue',
-    \ 'lua',
-    \ 'php',
-    \ 'python',
-    \ 'ruby',
-    \ 'html',
-    \ 'swift' ] }
+Plug 'vim-airline/vim-airline'
 call plug#end()
 
 
@@ -149,10 +130,24 @@ imap <c-s> <Esc>:w<cr>
 let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 
-let g:vim_monokai_tasty_italic = 1
-colorscheme vim-monokai-tasty
+"let g:vim_monokai_tasty_italic = 1
+"colorscheme vim-monokai-tasty
 
-let g:airline_theme='monokai_tasty'
+"let g:airline_theme='monokai_tasty'
 
 hi Normal ctermbg=NONE guibg=#000000
 hi LineNr ctermbg=NONE guibg=#000000
+
+" Comandos para configurar los lsp
+
+lua << EOF
+require'lspconfig'.pyright.setup{}
+EOF
+
+lua << EOF
+require'lspconfig'.rust_analyzer.setup{}
+EOF
+
+lua << EOF
+require'lspconfig'.clangd.setup{}
+EOF
