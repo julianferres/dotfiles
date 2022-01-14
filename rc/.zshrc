@@ -133,6 +133,7 @@ function estufapy(){
 }
 
 alias v="nvim"
+alias vim="nvim"
 alias p="python3"
 alias grep="grep --color=auto"
 
