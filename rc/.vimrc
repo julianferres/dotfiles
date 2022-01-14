@@ -98,6 +98,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 
@@ -119,9 +120,6 @@ filetype plugin indent on    " required
 
 autocmd filetype python nnoremap <F8> :w <bar> !python3 % <CR>
 
-set showcmd
-let g:UltiSnipsExpandTrigger = '<f5>' 
-
 "Comandos de guardar
 nmap <c-s> :w<cr>
 imap <c-s> <Esc>:w<cr>
@@ -129,6 +127,9 @@ imap <c-s> <Esc>:w<cr>
 "hi signcolumn ctermbg=235
 let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
+
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 
 "let g:vim_monokai_tasty_italic = 1
 "colorscheme vim-monokai-tasty
