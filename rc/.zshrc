@@ -5,7 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/julian/.oh-my-zsh"
@@ -16,9 +15,8 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
-#ZSH_THEME="random"
 #ZSH_THEME="pygmalion-virtualenv"
-#ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -143,10 +141,10 @@ alias ll="exa -lh"
 alias lst="exa -T"
 alias lsr="exa -r"
 
-alias alacrittyconfig="vi ~/.config/alacritty/alacritty.yml"
-alias zshconfig="v ~/.zshrc"
-alias vimconfig="v ~/.vimrc"
-alias ohmyzsh="vi ~/.oh-my-zsh"
+alias alacrittyconfig="vim ~/.config/alacritty/alacritty.yml"
+alias zshconfig="vim ~/.zshrc"
+alias vimconfig="vim ~/.vimrc"
+alias ohmyzsh="vim ~/.oh-my-zsh"
 alias open="xdg-open"
 
 # Git aliases

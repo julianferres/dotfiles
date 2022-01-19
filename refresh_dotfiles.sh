@@ -18,5 +18,8 @@ cp -r ~/.config/alacritty config
 cp -r ~/.config/picom config
 cp -r ~/.config/xmobar config
 
+# powerlevel10k config
+cp ~/.p10k.zsh rc
+
 echo "Dotfiles refreshed!"
 
