@@ -31,7 +31,7 @@ def write_to_file(path, content):
 
 def copy_template(problem_name):
     print(f'{fg("yellow")}Copying template to "{problem_name}.cpp"')
-    subprocess.run(['cp', TEMPLATE_FILE, f'{problem_name}.cpp'])
+    subprocess.run(['cp', '-n', TEMPLATE_FILE, f'{problem_name}.cpp'])
 
 def create_tests(tests, problem_name):
     for (i, test) in enumerate(tests):

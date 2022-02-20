@@ -140,15 +140,26 @@ hi Normal ctermbg=NONE guibg=#000000
 hi LineNr ctermbg=NONE guibg=#000000
 
 " Comandos para configurar los lsp
-
 lua << EOF
-require'lspconfig'.pyright.setup{}
+local servers = { 'gopls', 'pyright', 'rust_analyzer', 'tsserver' }
+for _, lsp in pairs(servers) do
+  require('lspconfig')[lsp].setup {
+    on_attach = on_attach,
+    flags = {
+      -- This will be the default in neovim 0.7+
+      debounce_text_changes = 150,
+    }
+  }
+end
 EOF
+"lua << EOF
+"require'lspconfig'.pyright.setup{}
+"EOF
 
-lua << EOF
-require'lspconfig'.rust_analyzer.setup{}
-EOF
+"lua << EOF
+"require'lspconfig'.rust_analyzer.setup{}
+"EOF
 
-lua << EOF
-require'lspconfig'.clangd.setup{}
-EOF
+"lua << EOF
+"require'lspconfig'.clangd.setup{}
+"EOF

@@ -1,11 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-
 # Path to your oh-my-zsh installation.
 export ZSH="/home/julian/.oh-my-zsh"
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"
@@ -16,7 +8,7 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 #ZSH_THEME="pygmalion-virtualenv"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+#ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -146,6 +138,7 @@ alias zshconfig="vim ~/.zshrc"
 alias vimconfig="vim ~/.vimrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias open="xdg-open"
+alias cat="bat"
 
 # Git aliases
 alias gaa="git add -A"
@@ -223,13 +216,11 @@ fi
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
-export PATH=/opt/apache-maven-3.8.4/bin:$PATH
 export PATH=/home/julian/Applications:$PATH
+export PATH=/home/julian/bin:$PATH
+export PATH=/home/julian/.local/bin:$PATH
 
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
