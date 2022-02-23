@@ -23,3 +23,5 @@ cp ~/.p10k.zsh rc
 
 echo "Dotfiles refreshed!"
 
+cp ~/.tmux.conf rc
+
