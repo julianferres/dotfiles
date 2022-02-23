@@ -84,6 +84,7 @@ set clipboard=unnamedplus
 """" Plugins
 
 call plug#begin('~/.vim/plugged')
+Plug 'dracula/vim', { 'as': 'dracula' } 
 Plug 'easymotion/vim-easymotion'
 Plug 'github/copilot.vim'
 Plug 'hrsh7th/nvim-compe'
@@ -125,8 +126,8 @@ nmap <c-s> :w<cr>
 imap <c-s> <Esc>:w<cr>
 
 "hi signcolumn ctermbg=235
-let g:gruvbox_contrast_dark = 'hard'
-colorscheme gruvbox
+"let g:gruvbox_contrast_dark = 'hard'
+colorscheme dracula
 
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -151,15 +152,3 @@ for _, lsp in pairs(servers) do
     }
   }
 end
-EOF
-"lua << EOF
-"require'lspconfig'.pyright.setup{}
-"EOF
-
-"lua << EOF
-"require'lspconfig'.rust_analyzer.setup{}
-"EOF
-
-"lua << EOF
-"require'lspconfig'.clangd.setup{}
-"EOF
