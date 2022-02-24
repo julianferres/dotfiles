@@ -6,6 +6,9 @@ import subprocess
 import sys
 from colored import fg
 
+def separator(color):
+    print(color + "-----------------------------------")
+
 CXX = "g++"
 CXX_FLAGS = "-std=c++17 -O2 -g -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -Wno-unused-result -Wno-sign-conversion -D_GLIBCXX_DEBUG"
 DEBUG_FLAGS = "-D_GLIBCXX_DEBUG_PEDANTIC -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fstack-protector -D_FORTIFY_SOURCE=2"
@@ -24,32 +27,31 @@ parser.add_argument('-o', type=str)
 args = parser.parse_args()
 
 
-def compile(name=None):
+def compile():
     compile_command = " ".join([CXX, CXX_FLAGS, LOCAL_FLAGS])
     compile_command += (" " + DEBUG_FLAGS if args.debug else "") + \
-                        " -o {} {}.cpp".format(args.problem, args.problem)
-    print(fg('cyan') + compile_command)
+                        f" -o {args.problem} {args.problem}.cpp"
+    print(cyan_color + compile_command)
 
     process = subprocess.Popen(compile_command, shell=True)
-    output, error = process.communicate()
+    process.communicate()
     return process.returncode == 0
 
 
 def run(test_name=None):
-    print(f"{fg('yellow')}Running {test_name}")
-    test_to_run = " < {}.in > {}.res".format(
-        test_name, test_name) if test_name is not None else ""
-    run_command = "time -f '  real\t%es\n  user\t%Us\n  sys\t%Ss\n  mem\t%MKB' ./{}".format(
-        args.problem)
+    print(yellow_color + f" 省 Running {test_name if test_name else args.problem}")
+    test_to_run = f" < {test_name}.in > {test_name}.res" if test_name is not None else ""
+    run_command = f"time -f '  real\t%es\n  user\t%Us\n  sys\t%Ss\n  mem\t%MKB' ./{args.problem}"
     run_command += test_to_run
-    print("time ./{}".format(args.problem) + test_to_run)
+    print(f"time ./{args.problem + test_to_run}")
 
     process = subprocess.Popen(run_command, shell=True)
-    output, error = process.communicate()
+    process.communicate()
     return process.returncode == 0
 
 
 def test():
+    all_tests_passed = True
     folder_files = [f for f in os.listdir('.') if os.path.isfile(f)]
     folder_files.sort()
 
@@ -60,20 +62,26 @@ def test():
         test_name = f[:-3]
         if(test_name + '.out' in folder_files):
             run(test_name) # Run this test
-            process = subprocess.Popen("colordiff -ys {}.res {}.out".format(test_name, test_name), shell = True)
-            output, error = process.communicate()
-            if(process.returncode):
-                return process.returncode == 0
+            process = subprocess.Popen(f"colordiff {test_name}.res {test_name}.out", shell = True)
+            process.communicate()
+            if process.returncode != 0:
+                print(red_color + f" Test {test_name} failed")
+                all_tests_passed = False
+            else:
+                print(green_color + f" Test {test_name} passed")
         else:
-            print("Output not found for {}".format(f))
+            print(yellow_color + f" Output not found for {f}")
+        separator(yellow_color)
 
-    print(fg('green') + "All tests passed")
-    return 1 # Corrio todos los test satisfactioriamente
+    return all_tests_passed # Corrio todos los test satisfactioriamente
 
 red_color = fg('red')
 yellow_color = fg('yellow')
+green_color = fg('green')
+cyan_color = fg('cyan')
 
 try:
+    print(cyan_color + "CF Runner julianferres")
     if args.action == 'run':
         if(not compile() or not run()):
             print(red_color + "Error de compilacion")
@@ -89,8 +97,10 @@ try:
             print(red_color + "Error de compilacion")
         else:
             passed_tests = test()
-            if not passed_tests:
-                print(red_color + "Algunos tests fallaron")
+            if passed_tests:
+                print(green_color + "--- All tests passed ---")
+            else:
+                print(red_color + "--- Some test failed ---")
     else:
         print(red_color + "Acción no encontrada")
 
