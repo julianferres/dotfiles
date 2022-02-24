@@ -6,6 +6,7 @@ set showmatch           " highlight matching parentheses / brackets [{()}]
 set laststatus=2        " always show statusline (even with only single window)
 set ruler               " show line and column number of the cursor on right side of statusline
 set visualbell 
+set signcolumn=number  " show line number on statusline
 
 "Me deja usar ctrl-s y ctrl-q para otras cosas
 silent !stty -ixon
@@ -90,13 +91,13 @@ Plug 'github/copilot.vim'
 Plug 'hrsh7th/nvim-compe'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'mhinz/vim-startify'
 Plug 'morhetz/gruvbox'
 Plug 'mxw/vim-jsx'
 Plug 'neovim/nvim-lspconfig'
 Plug 'patstockwell/vim-monokai-tasty'
-Plug 'mhinz/vim-startify'
-Plug 'rust-lang/rust.vim'
 Plug 'preservim/nerdcommenter'
+Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -154,4 +155,5 @@ for _, lsp in pairs(servers) do
     }
   }
 end
+EOF
 

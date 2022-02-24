@@ -128,6 +128,9 @@ function estufapy(){
     do cp ~/CP/templates/problem/main.py "${problem%%.*}".py
     done
 }
+function refresh_dotfiles(){
+    ~/dotfiles/refresh_dotfiles.sh
+}
 
 alias v="nvim"
 alias vim="nvim"
@@ -238,3 +241,4 @@ export NVM_DIR="$HOME/.nvm"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
