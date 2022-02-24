@@ -13,7 +13,7 @@ cp -r ~/.xmonad/* xmonad
 cp -r ~/CP/templates/* CP/templates
 
 # Copy some config files to config
-cp -r ~/.config/nvim config
+cp ~/.config/nvim/init.vim config
 cp -r ~/.config/alacritty config
 cp -r ~/.config/picom config
 cp -r ~/.config/xmobar config

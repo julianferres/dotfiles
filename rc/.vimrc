@@ -94,6 +94,8 @@ Plug 'morhetz/gruvbox'
 Plug 'mxw/vim-jsx'
 Plug 'neovim/nvim-lspconfig'
 Plug 'patstockwell/vim-monokai-tasty'
+Plug 'mhinz/vim-startify'
+Plug 'rust-lang/rust.vim'
 Plug 'preservim/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
@@ -152,3 +154,4 @@ for _, lsp in pairs(servers) do
     }
   }
 end
+

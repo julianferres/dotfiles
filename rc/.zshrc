@@ -221,6 +221,10 @@ if [ -s ~/.Xmodmap ]; then
     xmodmap ~/.Xmodmap
 fi
 
+if [ -s ~/.xinitrc ]; then
+    source ~/.xinitrc
+fi
+
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 export PATH=/home/julian/Applications:$PATH
