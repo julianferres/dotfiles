@@ -3,7 +3,8 @@ from .theme import colors
 
 # Get the icons at https://www.nerdfonts.com/cheat-sheet (you need a Nerd Font)
 
-def base(fg='text', bg='dark'): 
+
+def base(fg='text', bg='dark'):
     return {
         'foreground': colors[fg],
         'background': colors[bg]
@@ -26,13 +27,13 @@ def icon(fg='text', bg='dark', fontsize=16, text="?"):
 def powerline(fg="light", bg="dark"):
     return widget.TextBox(
         **base(fg, bg),
-        text="", # Icon: nf-oct-triangle_left
+        text="",  # Icon: nf-oct-triangle_left
         fontsize=37,
         padding=-2
     )
 
 
-def workspaces(): 
+def workspaces():
     return [
         separator(),
         widget.GroupBox(
@@ -69,25 +70,25 @@ primary_widgets = [
 
     powerline('color4', 'dark'),
 
-    icon(bg="color4", text=' '), # Icon: nf-fa-download
-    
-    widget.CheckUpdates(
+    widget.CPU(
         background=colors['color4'],
-        colour_have_updates=colors['text'],
-        colour_no_updates=colors['text'],
-        no_update_string='0',
-        display_format='{updates}',
-        update_interval=1800,
-        custom_command='checkupdates',
+        format='CPU:{load_percent}% ',
+        foreground=colors['text'],
     ),
 
-    powerline('color3', 'color4'),
+    # icon(bg="color4", text=''), # Icon: nf-fa-download
+    widget.Memory(
+        background=colors['color4'],
+        format='RAM:{MemUsed: .0f}{mm}',
+        foreground=colors['text'],
 
-    icon(bg="color3", text=' '),  # Icon: nf-fa-feed
-    
-    widget.Net(**base(bg='color3'), interface='wlp2s0'),
+    ),
 
-    powerline('color2', 'color3'),
+    powerline('color2', 'color4'),
+
+    # widget.Net(**base(bg='color3'), interface='wlp1s0', format='NET:{down}↓'),
+
+    # powerline('color2', 'color3'),
 
     widget.CurrentLayoutIcon(**base(bg='color2'), scale=0.65),
 
@@ -95,11 +96,27 @@ primary_widgets = [
 
     powerline('color1', 'color2'),
 
-    icon(bg="color1", fontsize=17, text=' '), # Icon: nf-mdi-calendar_clock
+    icon(bg="color1", fontsize=17, text=' '),  # Icon: nf-mdi-calendar_clock
 
     widget.Clock(**base(bg='color1'), format='%d/%m/%Y - %H:%M '),
 
     powerline('dark', 'color1'),
+
+    icon(bg="dark", fg="light", fontsize=17, text='墳 '),
+
+    widget.PulseVolume(
+        background=colors['dark'],
+        limit_max_volume=True,
+    ),
+
+    icon(bg="dark", fg="light", fontsize=15, text='  '),
+
+    widget.Backlight(
+        backlight_name='intel_backlight',
+        background=colors['dark'],
+    ),
+
+    widget.KeyboardLayout(**base(bg='dark', fg='light'), padding=10, configured_keyboards=['latam', 'us']),
 
     widget.Systray(background=colors['dark'], padding=5),
 ]
@@ -113,7 +130,7 @@ secondary_widgets = [
 
     widget.CurrentLayoutIcon(**base(bg='color1'), scale=0.65),
 
-    widget.CurrentLayout(**base(bg='color1'), padding=5),
+    widget.CurrentLayout(**base(bg='color1', fg='light'), padding=5, configured_keyboards=['es', 'us']),
 
     powerline('color2', 'color1'),
 
