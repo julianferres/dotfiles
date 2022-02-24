@@ -11,7 +11,7 @@ from .theme import colors
 
 layout_conf = {
     'border_focus': colors['focus'][0],
-    'border_width': 1,
+    'border_width': 3,
     'margin': 4
 }
 
