@@ -115,8 +115,14 @@ primary_widgets = [
         backlight_name='intel_backlight',
         background=colors['dark'],
     ),
-
     widget.KeyboardLayout(**base(bg='dark', fg='light'), padding=10, configured_keyboards=['latam', 'us']),
+
+    widget.Battery(
+        **base(bg='dark', fg='light'),
+        format='{char}{percent:2.0%} ',
+        charge_char='↑',
+        discharge_char='↓',
+    ),
 
     widget.Systray(background=colors['dark'], padding=5),
 ]
