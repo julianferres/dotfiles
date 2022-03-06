@@ -62,7 +62,7 @@ def test():
         test_name = f[:-3]
         if(test_name + '.out' in folder_files):
             run(test_name) # Run this test
-            process = subprocess.Popen(f"colordiff {test_name}.res {test_name}.out", shell = True)
+            process = subprocess.Popen(f"colordiff -ys {test_name}.res {test_name}.out", shell = True)
             process.communicate()
             if process.returncode != 0:
                 print(red_color + f" Test {test_name} failed")

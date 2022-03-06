@@ -31,7 +31,8 @@ nnoremap <Leader>o o<Esc>
 nnoremap <Leader>O O<Esc>j
 
 "fzf
-map <c-p> :Files .<CR>
+map <C-p> :Files<CR>
+map <C-t> :Rg<CR>
 
 "NERDTree
 nmap <F6> :NERDTreeToggle<CR>
@@ -71,9 +72,8 @@ set smartcase
 
 set incsearch           " search as characters are entered
 set hlsearch            " highlight matches
-"This unsets the "last search pattern" register by hitting return
+"This unsets the 'last search pattern' register by hitting return
 nnoremap <CR> :noh<CR><CR>
-set ignorecase " search case insensitive
 
 """" Miscellaneous settings that might be worth enabling
 
@@ -88,13 +88,13 @@ call plug#begin('~/.vim/plugged')
 Plug 'dracula/vim', { 'as': 'dracula' } 
 Plug 'easymotion/vim-easymotion'
 Plug 'github/copilot.vim'
-Plug 'hrsh7th/nvim-compe'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-startify'
-Plug 'morhetz/gruvbox'
 Plug 'mxw/vim-jsx'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neovim/nvim-lspconfig'
+Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'patstockwell/vim-monokai-tasty'
 Plug 'preservim/nerdcommenter'
 Plug 'rust-lang/rust.vim'
@@ -113,16 +113,11 @@ runtime macros/matchit.vim
 " Atajos para easymotion
 let mapleader=" "
 map <Leader>s <Plug>(easymotion-s2)
+map <Leader>w <Plug>(easymotion-w)
 
 "fzf
 let $FZF_DEFAULT_OPTS='--reverse'
-"let g:fzf_layout = { 'window' : { 'width': 0.8, 'height': 0.8 } }
-
-"""""" Competitive programming shorcuts
-autocmd filetype cpp nnoremap <F8> :w <bar> ! g++ -std=c++17 -DLOCAL -Wall -g -O2 -Wconversion -Wshadow -Wextra % -o %:r && ./%:r <CR>
 filetype plugin indent on    " required
-
-autocmd filetype python nnoremap <F8> :w <bar> !python3 % <CR>
 
 "Comandos de guardar
 nmap <c-s> :w<cr>
@@ -145,7 +140,7 @@ hi LineNr ctermbg=NONE guibg=#000000
 
 " Comandos para configurar los lsp
 lua << EOF
-local servers = { 'gopls', 'pyright', 'rust_analyzer', 'tsserver' }
+local servers = { 'gopls', 'pyright', 'clangd', 'rust_analyzer', 'tsserver' }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
     on_attach = on_attach,
@@ -157,3 +152,37 @@ for _, lsp in pairs(servers) do
 end
 EOF
 
+
+""" coc settings and mappings
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+let g:startify_custom_header = [
+      \  '                                  __                  ',
+      \  '     ___     ___    ___   __  __ /\_\    ___ ___      ',
+      \  '    / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\    ',
+      \  '   /\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \   ',
+      \  '   \ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\  ',
+      \  '    \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/  ',
+      \ ]
