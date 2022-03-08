@@ -1,4 +1,5 @@
 set mouse=a             " enable mouse support (might not work well on Mac OS X)
+set encoding=utf-8
 set number relativenumber
 set wildmenu            " visual autocomplete for command menu
 set lazyredraw          " redraw screen only when we need to
@@ -7,6 +8,10 @@ set laststatus=2        " always show statusline (even with only single window)
 set ruler               " show line and column number of the cursor on right side of statusline
 set visualbell 
 set signcolumn=number  " show line number on statusline
+
+"Permanent undo
+set undodir=~/.vim/undodir
+set undofile
 
 "Me deja usar ctrl-s y ctrl-q para otras cosas
 silent !stty -ixon
@@ -33,6 +38,7 @@ nnoremap <Leader>O O<Esc>j
 "fzf
 map <C-p> :Files<CR>
 map <C-t> :Rg<CR>
+let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 
 "NERDTree
 nmap <F6> :NERDTreeToggle<CR>
@@ -90,6 +96,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'github/copilot.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'machakann/vim-highlightedyank'
 Plug 'mhinz/vim-startify'
 Plug 'mxw/vim-jsx'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -99,10 +106,12 @@ Plug 'patstockwell/vim-monokai-tasty'
 Plug 'preservim/nerdcommenter'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'voldikss/vim-floaterm'
 call plug#end()
 
 
@@ -114,6 +123,15 @@ runtime macros/matchit.vim
 let mapleader=" "
 map <Leader>s <Plug>(easymotion-s2)
 map <Leader>w <Plug>(easymotion-w)
+
+" Jump between buffers
+map <Leader>p <c-^>
+map <Leader>x <Esc>:wq<cr>
+
+
+map <Leader>rp :so %<cr>:PlugInstall<cr>
+map <Leader>rr :so %<cr>
+
 
 "fzf
 let $FZF_DEFAULT_OPTS='--reverse'
@@ -129,6 +147,10 @@ colorscheme dracula
 
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_left_sep = ' '
+let g:airline_right_sep = ' '
+
+let g:highlightedyank_highlight_duration = 500
 
 "let g:vim_monokai_tasty_italic = 1
 "colorscheme vim-monokai-tasty
@@ -140,7 +162,7 @@ hi LineNr ctermbg=NONE guibg=#000000
 
 " Comandos para configurar los lsp
 lua << EOF
-local servers = { 'gopls', 'pyright', 'clangd', 'rust_analyzer', 'tsserver' }
+local servers = { 'pyright', 'clangd', 'rust_analyzer', 'tsserver' }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
     on_attach = on_attach,
@@ -165,19 +187,6 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
 let g:startify_custom_header = [
       \  '                                  __                  ',
       \  '     ___     ___    ___   __  __ /\_\    ___ ___      ',
@@ -186,3 +195,14 @@ let g:startify_custom_header = [
       \  '   \ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\  ',
       \  '    \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/  ',
       \ ]
+
+
+nnoremap   <silent>   <F7>    :FloatermNew<CR>
+tnoremap   <silent>   <F7>    <C-\><C-n>:FloatermNew<CR>
+nnoremap   <silent>   <F8>    :FloatermPrev<CR>
+tnoremap   <silent>   <F8>    <C-\><C-n>:FloatermPrev<CR>
+nnoremap   <silent>   <F9>    :FloatermNext<CR>
+tnoremap   <silent>   <F9>    <C-\><C-n>:FloatermNext<CR>
+nnoremap   <silent>   <F12>   :FloatermToggle<CR>
+tnoremap   <silent>   <F12>   <C-\><C-n>:FloatermToggle<CR>
+

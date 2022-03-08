@@ -62,10 +62,18 @@ def test():
         test_name = f[:-3]
         if(test_name + '.out' in folder_files):
             run(test_name) # Run this test
-            process = subprocess.Popen(f"colordiff -ys {test_name}.res {test_name}.out", shell = True)
+            process = subprocess.Popen(f"colordiff -ys {test_name}.res {test_name}.out", shell=True , stdout=subprocess.PIPE)
             process.communicate()
             if process.returncode != 0:
                 print(red_color + f" Test {test_name} failed")
+
+                print(yellow_color + "Actual output: ")
+                with open(f'{test_name}.res', 'r') as test_res:
+                    print(cyan_color + test_res.read().strip())
+                print(yellow_color + "Expected output: ")
+                with open(f'{test_name}.out', 'r') as test_out:
+                    print(cyan_color + test_out.read())
+
                 all_tests_passed = False
             else:
                 print(green_color + f" Test {test_name} passed")
