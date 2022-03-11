@@ -81,6 +81,9 @@ plugins=(
     autojump
     colored-man-pages
     colorize
+    copybuffer
+    copydir
+    dirhistory
     docker
     docker-compose
     fd
@@ -88,6 +91,7 @@ plugins=(
     fzf-tab
     git
     history-substring-search
+    sudo
     tmux
     web-search
     z
@@ -243,3 +247,8 @@ export NVM_DIR="$HOME/.nvm"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export NO_AT_BRIDGE=1 
+
+export RCLONE_VISA_LOCAL=~/Desktop/FB-UK/Visa
+export RCLONE_VISA_REMOTE=julianferres-gdrive:FB-UK/Visa
+
+export BAT_THEME="Dracula"
