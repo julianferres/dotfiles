@@ -25,7 +25,6 @@ parser.add_argument('--debug', action='store_true',
                     help='Indicates if we want to compile with DEBUG_FLAGS')
 parser.add_argument('--py', action='store_true')
 args = parser.parse_args()
-print(args)
 
 args.problem = args.problem.split(".")[0]
 
