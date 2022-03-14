@@ -35,7 +35,7 @@ def copy_template(problem_name):
 
 def create_tests(tests, problem_name):
     for (i, test) in enumerate(tests):
-        test_name = f'{problem_name}{i}'
+        test_name = f'{problem_name}{i+1}'
         # write test input to file
         write_to_file(f'{test_name}.in', test['input'])
         # write test output to file

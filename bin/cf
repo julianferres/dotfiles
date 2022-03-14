@@ -23,9 +23,11 @@ parser.add_argument('problem', type=str,
                     help='A required integer positional argument')
 parser.add_argument('--debug', action='store_true',
                     help='Indicates if we want to compile with DEBUG_FLAGS')
-parser.add_argument('-o', type=str)
+parser.add_argument('--py', action='store_true')
 args = parser.parse_args()
+print(args)
 
+args.problem = args.problem.split(".")[0]
 
 def compile():
     compile_command = " ".join([CXX, CXX_FLAGS, LOCAL_FLAGS])
@@ -49,10 +51,22 @@ def run(test_name=None):
     process.communicate()
     return process.returncode == 0
 
+def run_py(test_name=None):
+    print(yellow_color + f" 省 Running {test_name if test_name else args.problem}")
+    test_to_run = f" < {test_name}.in > {test_name}.res" if test_name is not None else ""
+    run_command = f"time -f '  real\t%es\n  user\t%Us\n  sys\t%Ss\n  mem\t%MKB' python3 {args.problem}.py {test_to_run}"
+    print(f"time python3 {args.problem}.py {test_to_run}")
+
+    process = subprocess.Popen(run_command, shell=True)
+    process.communicate()
+    return process.returncode == 0
+
 
 def test():
     all_tests_passed = True
     folder_files = [f for f in os.listdir('.') if os.path.isfile(f)]
+    if not folder_files:
+        print(yellow_color + "Tests not found!!")
     folder_files.sort()
 
     for f in folder_files:
@@ -61,7 +75,7 @@ def test():
             continue
         test_name = f[:-3]
         if(test_name + '.out' in folder_files):
-            run(test_name) # Run this test
+            run(test_name) if not args.py else run_py(test_name) # Run this test
             process = subprocess.Popen(f"colordiff -ys {test_name}.res {test_name}.out", shell=True , stdout=subprocess.PIPE)
             process.communicate()
             if process.returncode != 0:
@@ -91,15 +105,20 @@ cyan_color = fg('cyan')
 try:
     print(cyan_color + "CF Runner julianferres")
     if args.action == 'run':
-        if(not compile() or not run()):
+        if args.py:
+            run_py()
+        elif(not compile() or not run()):
             print(red_color + "Error de compilacion")
     elif args.action == 'compile':
         compiled_successfully = compile()
         if(not compiled_successfully):
             print(red_color + "Error de compilacion")
     elif args.action == 'exec':
-        run()
+        run() if not args.py else run_py()
     elif args.action == 'test':
+        if args.py:
+            test()
+            sys.exit(0)
         compiled_successfully = compile()
         if not compiled_successfully:
             print(red_color + "Error de compilacion")

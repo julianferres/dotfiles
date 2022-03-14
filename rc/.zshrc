@@ -252,3 +252,7 @@ export RCLONE_VISA_LOCAL=~/Desktop/FB-UK/Visa
 export RCLONE_VISA_REMOTE=julianferres-gdrive:FB-UK/Visa
 
 export BAT_THEME="Dracula"
+
+[ -f "/home/julian/.ghcup/env" ] && source "/home/julian/.ghcup/env" # ghcup-env
+
+

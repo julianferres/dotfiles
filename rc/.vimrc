@@ -17,7 +17,6 @@ set undofile
 " Frees Ctrl-S and Ctrl-q (if not it freezes the terminal)
 silent !stty -ixon
 autocmd VimLeave * silent !stty ixon
-set listchars=tab:•·,trail:·,extends:❯,precedes:❮,nbsp:×
 
 " ================== Key Bindings =========================
 
@@ -118,7 +117,6 @@ call plug#end()
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
-runtime macros/matchit.vim
 
 " ==== fzf ==== 
 map <C-p> :Files<CR>
