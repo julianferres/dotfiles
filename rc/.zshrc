@@ -81,8 +81,8 @@ plugins=(
     autojump
     colored-man-pages
     colorize
-    copybuffer
     copydir
+    copyfile
     dirhistory
     docker
     docker-compose
@@ -219,6 +219,7 @@ alias gcol='fzf-git-checkout'
 if type rg &> /dev/null; then
     export FZF_ALT_C_COMMAND='fdfind'
 fi
+export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*,target/*}"'
 
 
 ## Markdown server: grip

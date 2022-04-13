@@ -20,8 +20,8 @@ from .keys import mod, keys
 # nf-mdi-image, 
 # nf-mdi-layers
 
-groups = [Group(i) for i in [
-    "   ", "   ", " ﬏ ", "   ", "  "]]
+groups = [Group(str(i)) for i in range(1, 6)]
+    # "   ", "   ", " ﬏ ", "   ", "  "]]
 # , "   ", "   ", "   ", "   ",
 # ]]
 

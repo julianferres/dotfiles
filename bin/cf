@@ -10,8 +10,8 @@ def separator(color):
     print(color + "-----------------------------------")
 
 CXX = "g++"
-CXX_FLAGS = "-std=c++17 -O2 -g -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -Wno-unused-result -Wno-sign-conversion -D_GLIBCXX_DEBUG"
-DEBUG_FLAGS = "-D_GLIBCXX_DEBUG_PEDANTIC -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fstack-protector -D_FORTIFY_SOURCE=2"
+CXX_FLAGS = "-std=c++17 -O2 -g -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -Wno-unused-result -Wno-sign-conversion" 
+DEBUG_FLAGS = "-D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fstack-protector -D_FORTIFY_SOURCE=2"
 LOCAL_FLAGS = "-DLOCAL"
 
 # Parse problem name as cli parameters
@@ -21,6 +21,7 @@ parser.add_argument('action', type=str,
                     help='Wheter we want to run or test against .in and .out files')
 parser.add_argument('problem', type=str,
                     help='A required integer positional argument')
+parser.add_argument('-f', type=str, default=None, help='Name of file to run')
 parser.add_argument('--debug', action='store_true',
                     help='Indicates if we want to compile with DEBUG_FLAGS')
 parser.add_argument('--py', action='store_true')
@@ -39,22 +40,24 @@ def compile():
     return process.returncode == 0
 
 
-def run(test_name=None):
+def run(file_name= None, test_name=None):
     print(yellow_color + f" 省 Running {test_name if test_name else args.problem}")
     test_to_run = f" < {test_name}.in > {test_name}.res" if test_name is not None else ""
-    run_command = f"time -f '  real\t%es\n  user\t%Us\n  sys\t%Ss\n  mem\t%MKB' ./{args.problem}"
-    run_command += test_to_run
-    print(f"time ./{args.problem + test_to_run}")
+    file_to_run = f" < {file_name}"
+    run_command = f"ulimit -s 562144 && time -f '  real\t%es\n  user\t%Us\n  sys\t%Ss\n  mem\t%MKB' ./{args.problem}"
+    run_command += (file_to_run if file_name else test_to_run)
+    print(f"time ./{args.problem + (file_to_run if file_name else test_to_run)}")
 
     process = subprocess.Popen(run_command, shell=True)
     process.communicate()
     return process.returncode == 0
 
-def run_py(test_name=None):
+def run_py(file_name=None, test_name=None):
     print(yellow_color + f" 省 Running {test_name if test_name else args.problem}")
     test_to_run = f" < {test_name}.in > {test_name}.res" if test_name is not None else ""
-    run_command = f"time -f '  real\t%es\n  user\t%Us\n  sys\t%Ss\n  mem\t%MKB' python3 {args.problem}.py {test_to_run}"
-    print(f"time python3 {args.problem}.py {test_to_run}")
+    file_to_run = f" < {file_name}"
+    run_command = f"time -f '  real\t%es\n  user\t%Us\n  sys\t%Ss\n  mem\t%MKB' python3 {args.problem}.py {file_to_run if file_name else test_to_run}"
+    print(f"time python3 {args.problem}.py {file_to_run if file_name else test_to_run}")
 
     process = subprocess.Popen(run_command, shell=True)
     process.communicate()
@@ -112,6 +115,8 @@ try:
         compiled_successfully = compile()
         if(not compiled_successfully):
             print(red_color + "Error de compilacion")
+    elif args.action == 'runf':
+        run(args.f) if not args.py else run_py(args.f)
     elif args.action == 'exec':
         run() if not args.py else run_py()
     elif args.action == 'test':

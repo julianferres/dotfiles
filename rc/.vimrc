@@ -18,86 +18,21 @@ set undofile
 silent !stty -ixon
 autocmd VimLeave * silent !stty ixon
 
-" ================== Key Bindings =========================
+" Leader map
+let mapleader=" "
 
-" Move vertically by visual line (don't skip wrapped lines)
-nmap j gj
-nmap k gk
-nmap E ge
-    
-" Ctrl-A Ctrl-C Ctrl-V
-map gA m'ggVG"+y''
+" ================== Plugins =========================
 
-" Move lines
-xnoremap <C-k> :move '<-2<CR>gv=gv
-xnoremap <C-j> :move '>+1<CR>gv=gv
-
-" Save commands
-nmap <c-s> :w<cr>
-imap <c-s> <Esc>:w<cr>
-
-"This unsets the 'last search pattern' register by hitting return
-nnoremap <CR> :noh<CR><CR>
-
-" Jump between buffers
-map <Leader>p <c-^>
-map <Leader>x <Esc>:wq<cr>
-
-" Quick source and plugin install
-map <Leader>rp :so %<cr>:PlugInstall<cr>
-map <Leader>rr :so %<cr>
-
-
-
-" use filetype-based syntax highlighting, ftplugins, and indentation
-syntax enable
-filetype plugin indent on
-syntax on
-
-"Set up vertical vs block cursor for insert/normal mode
-"if &term =~ "screen."
-    "let &t_ti.="\eP\e[1 q\e\\"
-    "let &t_SI.="\eP\e[5 q\e\\"
-    "let &t_EI.="\eP\e[1 q\e\\"
-    "let &t_te.="\eP\e[0 q\e\\"
-"else
-    "let &t_ti.="\<Esc>[1 q"
-    "let &t_SI.="\<Esc>[5 q"
-    "let &t_EI.="\<Esc>[1 q"
-    "let &t_te.="\<Esc>[0 q"
-"endif
-
-"""" Tab settings
-
-set tabstop=4           " width that a <TAB> character displays as
-set expandtab           " convert <TAB> key-presses to spaces
-set shiftwidth=4        " number of spaces to use for each step of (auto)indent
-set softtabstop=4       " backspace after pressing <TAB> will remove up to this many spaces
-
-set autoindent          " copy indent from current line when starting a new line
-set smartindent         " even better autoindent (e.g. add indent after '{')
-set smarttab
-set smartcase
-
-"""" Search settings
-set incsearch           " search as characters are entered
-set hlsearch            " highlight matches
-
-"""" Miscellaneous settings that might be worth enabling
-set cursorline               " highlight current line
-set background=dark          " configure Vim to use darker colors
-set autoread                 " autoreload the file in Vim if it has been changed outside of Vim
-set clipboard=unnamedplus    " afaik, this links global clipboard
-
-
-"""" Plugins
 call plug#begin('~/.vim/plugged')
 Plug 'dracula/vim', { 'as': 'dracula' } 
+"Plug 'github/copilot.vim'
 Plug 'easymotion/vim-easymotion'
-" Plug 'github/copilot.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'lambdalisue/suda.vim'
+Plug 'cplaursen/vim-isabelle'
 Plug 'machakann/vim-highlightedyank'
+Plug 'mbbill/undotree'
 Plug 'mhinz/vim-startify'
 Plug 'mxw/vim-jsx'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -115,15 +50,71 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'voldikss/vim-floaterm'
 call plug#end()
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
+
+" ================== Key Bindings =========================
+
+" Move vertically by visual line (don't skip wrapped lines)
+nmap j gj
+nmap k gk
+nmap E ge
+map H ^
+map L $
+    
+" Ctrl-A Ctrl-C Ctrl-V
+map gA m'ggVG"+y''
+
+" Move lines
+xnoremap <C-k> :move '<-2<CR>gv=gv
+xnoremap <C-j> :move '>+1<CR>gv=gv
+
+" Save commands
+nmap <c-s> :w<cr>
+imap <c-s> <Esc>:w<cr>
+
+"This unsets the 'last search pattern' register by hitting return
+nnoremap <CR> :noh<CR><CR>
+
+" Jump between buffers
+nmap <leader><leader> <c-^>
+nmap <Leader>x <Esc>:wq<cr>
+nnoremap <Leader>, :set invlist<cr>
+
+" use filetype-based syntax highlighting, ftplugins, and indentation
+syntax enable
+filetype plugin indent on
+syntax on
+
+"""" Tab settings
+
+set tabstop=4           " width that a <TAB> character displays as
+set expandtab           " convert <TAB> key-presses to spaces
+set shiftwidth=4        " number of spaces to use for each step of (auto)indent
+set softtabstop=4       " backspace after pressing <TAB> will remove up to this many spaces
+
+set autoindent          " copy indent from current line when starting a new line
+set smartindent         " even better autoindent (e.g. add indent after '{')
+set smarttab
+
+"""" Search settings
+set smartcase           " start case-insensitive, as soon as a capital letter appears, switch to case-sensitive
+set incsearch           " search as characters are entered
+set hlsearch            " highlight matches
+
+"""" Miscellaneous settings that might be worth enabling
+set cursorline               " highlight current line
+set background=dark          " configure Vim to use darker colors
+set autoread                 " autoreload the file in Vim if it has been changed outside of Vim
+set clipboard=unnamedplus    " afaik, this links global clipboard
+
+
+"set nocompatible              " be iMproved, required
+"filetype off                  " required
 
 " ==== fzf ==== 
 map <C-p> :Files<CR>
 map <C-t> :Rg<CR>
-let g:fzf_action = { 'enter': 'tab split' }
-let g:fzf_preview_window = ['right:60%', 'ctrl-/']
-"let g:fzf_layout = { 'down': '40%' }
+"let g:fzf_action = { 'enter': 'tab split' }
+let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 let g:fzf_layout = { 'window': { 'width': 1.0, 'height': 0.5, 'relative': v:true, 'yoffset': 1.0 } }
 let $FZF_DEFAULT_OPTS='--reverse'
 filetype plugin indent on    " required
@@ -131,8 +122,11 @@ filetype plugin indent on    " required
 " ==== NERDTree ====
 nmap <F6> :NERDTreeToggle<CR>
 
+" ==== Undotree ====
+nnoremap <F7> :UndotreeToggle<CR>
+
 " ==== easymotion ==== 
-let mapleader=" "
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
 map <Leader>s <Plug>(easymotion-s2)
 map <Leader>w <Plug>(easymotion-w)
 
@@ -156,20 +150,6 @@ let g:highlightedyank_highlight_duration = 500
 hi Normal ctermbg=NONE guibg=#000000
 hi LineNr ctermbg=NONE guibg=#000000
 
-" LSP config commands
-lua << EOF
-local servers = { 'pyright', 'clangd', 'rust_analyzer', 'tsserver' }
-for _, lsp in pairs(servers) do
-  require('lspconfig')[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      -- This will be the default in neovim 0.7+
-      debounce_text_changes = 150,
-    }
-  }
-end
-EOF
-
 """ ==== coc.nvim ====
 " coc settings and mappings
 " Use `[g` and `]g` to navigate diagnostics
@@ -185,17 +165,33 @@ nmap <silent> gr <Plug>(coc-references)
 
 " make tab traverse suggestion options and enter not to jump line
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Use <c-space> to trigger completion in neovim with ctrl+space
+inoremap <silent><expr> <c-space> coc#refresh()
 
 " ==== floaterm ==== 
 nnoremap   <silent>   <F12>   :FloatermToggle<CR>
 tnoremap   <silent>   <F12>   <C-\><C-n>:FloatermToggle<CR>
-let g:floaterm_height = 0.99
-let g:floaterm_width = 0.5
+let g:floaterm_height = 0.5
+let g:floaterm_width = 1.0
 let g:floaterm_wintype = 'float'
-let g:floaterm_position = 'right'
+let g:floaterm_position = 'bottom'
+
+" ==== lsp configs ====
+" LSP config commands
+lua << EOF
+local servers = { 'pyright', 'clangd', 'rust_analyzer', 'tsserver' }
+for _, lsp in pairs(servers) do
+  require('lspconfig')[lsp].setup {
+    on_attach = on_attach,
+    flags = {
+      -- This will be the default in neovim 0.7+
+      debounce_text_changes = 150,
+    }
+  }
+end
+EOF
 
 
 " ==== Startify ====
@@ -209,3 +205,20 @@ let g:startify_custom_header = [
       \ ]
 
 
+
+" Disable Arrow keys in Normal mode
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+
+" Disable Arrow keys in Insert mode
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+" ==== Competitive Programming ====
+nnoremap <Leader>cp :r ~/CP/templates/problem/main.cpp
+
+autocmd filetype cpp nnoremap <F5> :w <bar> !cf run %:r <CR>
