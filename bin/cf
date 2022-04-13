@@ -108,15 +108,13 @@ try:
     print(cyan_color + "CF Runner julianferres")
     if args.action == 'run':
         if args.py:
-            run_py()
-        elif(not compile() or not run()):
+            run_py(args.f)
+        elif(not compile() or not run(args.f)):
             print(red_color + "Error de compilacion")
     elif args.action == 'compile':
         compiled_successfully = compile()
         if(not compiled_successfully):
             print(red_color + "Error de compilacion")
-    elif args.action == 'runf':
-        run(args.f) if not args.py else run_py(args.f)
     elif args.action == 'exec':
         run() if not args.py else run_py()
     elif args.action == 'test':
