@@ -26,8 +26,8 @@ typedef vector<ii> vii; typedef vector<bool> vb;
 #define mp make_pair
 #define all(c) (c).begin(),(c).end()
 #define esta(x,c) ((c).find(x) != (c).end())
-const int INF = 1<<30; // const ll INF = (1LL<<60);
-const int MOD = 1e9+7;  // const int MOD = 998244353;
+const ll INF = (1LL<<60); // const int INF = 1<<30; 
+const int MOD = 1e9+7;    // const int MOD = 998244353;
 const int MAXN  = 2e5+5;
 
 int main(){  

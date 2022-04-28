@@ -31,6 +31,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'lambdalisue/suda.vim'
 Plug 'cplaursen/vim-isabelle'
+Plug 'lervag/vimtex'
 Plug 'machakann/vim-highlightedyank'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-startify'
@@ -39,6 +40,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'patstockwell/vim-monokai-tasty'
+Plug 'SirVer/ultisnips'
 Plug 'preservim/nerdcommenter'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
@@ -178,6 +180,9 @@ let g:floaterm_width = 1.0
 let g:floaterm_wintype = 'float'
 let g:floaterm_position = 'bottom'
 
+" ==== UltiSnips ====
+let g:UltiSnipsExpandTrigger="<F5>" 
+
 " ==== lsp configs ====
 " LSP config commands
 lua << EOF
@@ -206,19 +211,18 @@ let g:startify_custom_header = [
 
 
 
-" Disable Arrow keys in Normal mode
-noremap <up> <nop>
-noremap <down> <nop>
-noremap <left> <nop>
-noremap <right> <nop>
+"" Disable Arrow keys in Normal mode
+"noremap <up> <nop>
+"noremap <down> <nop>
+"noremap <left> <nop>
+"noremap <right> <nop>
 
-" Disable Arrow keys in Insert mode
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
+"" Disable Arrow keys in Insert mode
+"inoremap <up> <nop>
+"inoremap <down> <nop>
+"inoremap <left> <nop>
+"inoremap <right> <nop>
 
 " ==== Competitive Programming ====
 nnoremap <Leader>cp :r ~/CP/templates/problem/main.cpp
 
-autocmd filetype cpp nnoremap <F5> :w <bar> !cf run %:r <CR>

@@ -77,7 +77,7 @@ def test():
             continue
         test_name = f[:-3]
         if(test_name + '.out' in folder_files):
-            run(test_name) if not args.py else run_py(test_name) # Run this test
+            run(test_name = test_name) if not args.py else run_py(test_name, test_name) # Run this test
             process = subprocess.Popen(f"colordiff -ys {test_name}.res {test_name}.out", shell=True , stdout=subprocess.PIPE)
             process.communicate()
             if process.returncode != 0:
