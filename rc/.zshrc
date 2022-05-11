@@ -7,7 +7,7 @@ fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/julian/.oh-my-zsh"
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"
+#export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,

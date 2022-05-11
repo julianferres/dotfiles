@@ -52,7 +52,8 @@ myBorderWidth = 3 :: Dimension
 
 myNormColor = "#292d3e" :: String
 
-myFocusColor = "#c792ea" :: String
+--myFocusColor = "#c792ea" :: String
+myFocusColor = "#ffffff" :: String
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
@@ -112,7 +113,8 @@ xmobarEscape = concatMap doubleLts
 
 myWorkspaces :: [String]
 myWorkspaces = clickable . (map xmobarEscape)
-    $ ["term", "www", "dev", "misc"]
+    -- $ ["term", "www", "dev", "misc"]
+    $ ["1", "2", "3", "4"]
   where
     clickable l = ["<action=xdotool key super+" ++ show (i) ++ "> " ++ ws ++ "</action>" | (i, ws) <- zip [1 .. 4] l]
 
@@ -125,9 +127,10 @@ myManageHook = composeAll
      -- I'm doing it this way because otherwise I would have to write out the full
      -- name of my workspaces, and the names would very long if using clickable workspaces.
      [ title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 1 )
-     , className =? "Gimp"    --> doShift ( myWorkspaces !! 3 )
+     , className =? "Gimp"    --> doShift ( myWorkspaces !! 4 )
      , title =? "Oracle VM VirtualBox Manager"     --> doFloat
      , title =? "Visual Studio Code" --> doShift ( myWorkspaces !! 2) 
+     , title =? "Brave" --> doShift ( myWorkspaces !! 3 )
      , title =? "Telegram" --> doShift ( myWorkspaces !! 3) 
      , title =? "Discord" --> doShift ( myWorkspaces !! 3) 
      , title =? "JetBrains Toolbox" --> doFloat
@@ -164,7 +167,7 @@ myKeys =
     -- Reboot
     ("M-S-C-r", spawn "reboot"),
     -- Quit xmonad
-    ("M-S-e", io exitSuccess),
+    ("M-C-q", io exitSuccess),
 
 
     ----------------- Floating windows -----------------
@@ -212,7 +215,8 @@ myKeys =
     -- Menu
     ("M-m", spawn "rofi -show drun"),
     -- Dmenu
-    ("M-S-d", spawn "dmenu_run -p 'dmenu' -h 29 -sb '#4A4F68' -nf '#c792ea' -nb '#192d3e' -sf '#c3e88d' -fn 'UbuntuMono Nerd Font:weight=Bold:pixelsize=15'"),
+    --("M-S-d", spawn "dmenu_run -p 'dmenu' -h 29 -sb '#4A4F68' -nf '#c792ea' -nb '#192d3e' -sf '#c3e88d' -fn 'UbuntuMono Nerd Font:weight=Bold:pixelsize=15'"),
+    ("M-S-d", spawn "rofi -show drun"),
     -- Window nav
     --UbuntuMono Nerd Font:weight=bold:pixelsize=16
     ("M-S-m", spawn "rofi -show"),
@@ -239,8 +243,8 @@ myKeys =
     ("<XF86AudioMute>", spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle" ),
 
     -- Brightness
-    ("<XF86MonBrightnessUp>", spawn "light -A 5"),
-    ("<XF86MonBrightnessDown>", spawn "light -U 5")
+    ("<XF86MonBrightnessUp>", spawn "brightnessctl s +5%"),
+    ("<XF86MonBrightnessDown>", spawn "brightnessctl s 5%-")
     ]
 
 myKeysR :: [String]
@@ -249,8 +253,8 @@ myKeysR = ["M-S-q", "M-q"]
 main :: IO ()
 main = do
     -- Xmobar
-    xmobarLaptop <- spawnPipe "xmobar -x 1 ~/.config/xmobar/primary.hs"
-    xmobarMonitor <- spawnPipe "xmobar -x 0 ~/.config/xmobar/secondary.hs"
+    xmobarLaptop <- spawnPipe "xmobar -x 0 ~/.config/xmobar/primary.hs"
+    xmobarMonitor <- spawnPipe "xmobar -x 1 ~/.config/xmobar/secondary.hs"
     -- Xmonad
     xmonad $ ewmh def {
         manageHook = (isFullscreen --> doFullFloat) <+> myManageHook <+> manageDocks <+> insertPosition Below Newer,
@@ -265,7 +269,7 @@ main = do
         focusedBorderColor = myFocusColor,
         -- Log hook
         logHook = workspaceHistoryHook <+> dynamicLogWithPP xmobarPP {
-            ppOutput = \x -> hPutStrLn xmobarMonitor x >> hPutStrLn xmobarLaptop x,
+            ppOutput = \x -> hPutStrLn xmobarLaptop x >> hPutStrLn xmobarMonitor x,
             -- Current workspace in xmobar
             ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" " ]",
             -- Visible but not current workspace

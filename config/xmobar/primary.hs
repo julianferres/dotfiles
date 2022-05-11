@@ -15,20 +15,20 @@ Config {
         Run Com "battery" [] "battery" 600,
         Run Cpu ["-t", " (<total>%)","-H","50","--high","red"] 150,
         Run Memory ["-t", "  <used>M"] 150,
-        Run Com "brightness" [] "brightness" 10,
-        --Run Com "bash" ["-c", "apt list --upgradable | sed '1d' | wc -l"] "updates" 3000,
+        Run Com "brightness" [] "brightness" 5,
+        Run Com "bash" ["-c", "apt list --upgradable | sed '1d' | wc -l"] "updates" 3000,
         Run Com "/home/julian/.config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 10,
         Run UnsafeStdinReader
     ],
     alignSep = "}{",
     template = "\
-        \<action=`dmenu_run -p 'dmenu' -h 25 -sb '#4A4F68' -nf '#c792ea' -nb '#192d3e' -sf '#c3e88d' -fn 'UbuntuMono Nerd Font:weight=bold:pixelsize=16' -y 4 -x 4 -z 1358`><fc=#b303ff>   </fc></action>%UnsafeStdinReader% }{ \
-        --\<action=`alacritty -e sudo apt upgrade` button=1><fc=#e1acff> %updates% </fc></action>\
-        \<action=`alacritty -e htop` button=1><fc=#FF5555> %memory% </fc></action>\
+        \<action=`rofi -show drun`><fc=#b303ff>   </fc></action>%UnsafeStdinReader% }{ \
+        \<action=`alacritty -e sudo apt upgrade` button=1><fc=#e1acff> %updates% </fc></action>\
         \<action=`alacritty -e bpytop` button=1><fc=#FFB86C> %cpu% </fc></action>\
-        \<action=`light -A 5` button=14><action=`light -U 5` button=35><fc=#FDFD96> %brightness%</fc></action></action>\
+        \<action=`alacritty -e htop` button=1><fc=#FF5555> %memory% </fc></action>\
+        \<fc=#FDFD96> %brightness%</fc>\
         \<fc=#c3e88d> %battery%</fc>\
         --\<action=`pavucontrol` button=1><fc=#82AAFF> %volume% </fc></action>\
-        \<action=`gnome-clocks` button=1><fc=#8BE9FD> %date% </fc></action>\
+        \<action=`gnome-calendar` button=1><fc=#8BE9FD> %date% </fc></action>\
         \%trayerpad%"
 }

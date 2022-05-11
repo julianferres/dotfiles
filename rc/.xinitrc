@@ -5,3 +5,12 @@ xinput set-prop 'Synaptics TM3096-006' 'libinput Tapping Enabled' 1
 
 #natural scrolling enabled
 xinput set-prop 'Synaptics TM3096-006' 'libinput Natural Scrolling Enabled' 1
+
+##########
+# XMonad #
+##########
+
+# Initialize Cursor
+xsetroot -cursor_name left_ptr
+
+setxkbmap -layout latam 
