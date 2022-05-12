@@ -24,7 +24,7 @@ Config {
     template = "\
         \<action=`rofi -show drun`><fc=#b303ff>   </fc></action>%UnsafeStdinReader% }{ \
         \<action=`alacritty -e sudo apt upgrade` button=1><fc=#e1acff> %updates% </fc></action>\
-        \<action=`alacritty -e bpytop` button=1><fc=#FFB86C> %cpu% </fc></action>\
+        \<action=`alacritty -e htop` button=1><fc=#FFB86C> %cpu% </fc></action>\
         \<action=`alacritty -e htop` button=1><fc=#FF5555> %memory% </fc></action>\
         \<fc=#FDFD96> %brightness%</fc>\
         \<fc=#c3e88d> %battery%</fc>\
