@@ -12,7 +12,16 @@ floating_modifier $super
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id nm-applet --sm-disable
 exec --no-startup-id pasystray
+exec --no-startup-id mictray
 exec --no-startup-id blueman-applet
+
+# Start XDG autostart .desktop files using dex. See also
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec --no-startup-id dex --autostart --environment i3
+
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # Sart shutter at startup
 #exec shutter --min_at_startup
@@ -34,15 +43,20 @@ bindsym $super+Shift+g exec geany
 bindsym $super+Shift+e exec subl
 
 #change volume
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym $super+F7 exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 #change brightness
 bindsym XF86MonBrightnessUp exec brightnessctl s +5%
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 
 bindsym --release Print exec scrot ~/Pictures/Wallpapers/%Y-%m-%d_%H-%M-%S_screenshot.png
+
+bindsym $super+Shift+minus move scratchpad
+bindsym $super+minus scratchpad show
 
 # music control
 bindsym XF86AudioNext exec mpc next
@@ -103,6 +117,8 @@ bindsym $super+3 workspace 3
 bindsym $super+4 workspace 4
 bindsym $super+5 workspace 5
 bindsym $super+6 workspace 6
+bindsym $super+7 workspace 7
+bindsym $super+8 workspace 8
 
 # move focused container to workspace
 bindsym $super+Shift+1 move container to workspace 1
@@ -111,12 +127,14 @@ bindsym $super+Shift+3 move container to workspace 3
 bindsym $super+Shift+4 move container to workspace 4
 bindsym $super+Shift+5 move container to workspace 5
 bindsym $super+Shift+6 move container to workspace 6
+bindsym $super+Shift+7 move container to workspace 7
+bindsym $super+Shift+8 move container to workspace 8
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $super+Shift+r restart
 
 # exit i3
-bindsym $super+Control+q exec "i3-nagbar -t warning -m 'Really, exit?' -b 'Yes' 'i3-msg exit'"
+bindsym $super+Control+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -132,9 +150,10 @@ mode "resize" {
 }
 bindsym $super+r mode "resize"
 
+set $cyan_color '#02FFBF'
 # panel
 bar {
-    status_command i3status
+    status_command i3status | i3status-title-on-bar --color $cyan_color
 }
 
 # window rules, you can find the window class using xprop
@@ -144,7 +163,7 @@ assign [class=Firefox|Brave-browser|Transmission-gtk] 2
 assign [class=Thunar|File-roller] 3
 assign [class=Geany|Evince|Gucharmap|Soffice|libreoffice*|Isabelle2021] 4
 assign [class=Audacity|Vlc|mpv|Ghb|Xfburn|Gimp*|Inkscape] 5
-assign [class=Lxappearance|System-config-printer.py|Lxtask|GParted|Pavucontrol|Exo-helper*|Lxrandr|Arandr] 6
+#assign [class=Lxappearance|System-config-printer.py|Lxtask|GParted|Exo-helper*|Lxrandr|Arandr] 6
 for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol] floating enable
 for_window [class=URxvt|Firefox|Geany|Evince|Soffice|libreoffice*|mpv|Ghb|Xfburn|Gimp*|Inkscape|Vlc|Lxappearance|Audacity] focus
 for_window [class=Xfburn|GParted|System-config-printer.py|Lxtask|Pavucontrol|Exo-helper*|Lxrandr|Arandr] focus
@@ -176,21 +195,22 @@ client.background           #2f343f
 # ROB Custom Config
 ####################################
 
-# Repeat rate config
-exec --no-startup-id xset r rate 220 40
-# 185 -  delay
-# 100 - interval
-
 # Control volume
-set $mainmonitor  DP-1-1
+set $hdmimonitor  HDMI-1
 set $laptopmonitor eDP-1
-set $secondmonitor DP-1-2
+
 
 # Use this for 3 monitor setup at work
+#exec --no-startup-id xrandr --output $mainmonitor --mode 1440x900 --auto --above $laptopmonitor
 #exec --no-startup-id xrandr --output $secondmonitor --mode 1920x1200 --pos 0x0 --rotate normal --output $mainmonitor --primary --mode 1920x1200 --pos 1920x0 --rotate normal --output $laptopmonitor --mode 1920x1080  --pos 3840x0 --rotate normal
-#workspace 1 output $laptopmonitor
-#workspace 2 output $mainmonitor
-#workspace 3 output $secondmonitor
+workspace 1 output $laptopmonitor 
+workspace 2 output $laptopmonitor
+workspace 3 output $laptopmonitor
+workspace 4 output $laptopmonitor
+workspace 5 output $hdmimonitor $laptopmonitor
+workspace 6 output $hdmimonitor $laptopmonitor
+workspace 7 output $hdmimonitor $laptopmonitor
+workspace 8 output $hdmimonitor $laptopmonitor
 
 #Use this for only laptop
 #exec --no-startup-id xrandr --output $secondmonitor --off --output $laptopmonitor --primary --mode 1920x1080 --pos 0x0 --rotate normal --output $mainmonitor --off
