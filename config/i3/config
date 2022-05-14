@@ -3,7 +3,7 @@ set $super Mod4
 set $alt Mod1
 
 # set font
-font pango: Cantarell, Cantarell 10
+font pango: Meslo LG S Regular Nerd Font 10
 
 # Use Mouse+$super to drag floating windows to their wanted position
 floating_modifier $super
@@ -36,9 +36,10 @@ bindsym $super+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show dru
 bindsym $super+Tab exec rofi -show window -font 'JetBrains Mono 12'
 
 # common apps keybinds
-bindsym $super+w exec i3lock -i ~/Pictures/Wallpapers/3908955.png
-bindsym $super+b exec google-chrome;
-bindsym $super+Shift+f exec nautilus;workspace 3;focus
+bindsym $super+w exec i3lock-blur
+
+bindsym $super+b exec google-chrome --password-store=gnome
+bindsym $super+Shift+f exec nautilus
 bindsym $super+Shift+g exec geany
 bindsym $super+Shift+e exec subl
 
@@ -115,7 +116,6 @@ bindsym $super+4 workspace 4
 bindsym $super+5 workspace 5
 bindsym $super+6 workspace 6
 bindsym $super+7 workspace 7
-bindsym $super+8 workspace 8
 
 # Move focused container to workspace
 bindsym $super+Shift+1 move container to workspace 1
@@ -125,7 +125,6 @@ bindsym $super+Shift+4 move container to workspace 4
 bindsym $super+Shift+5 move container to workspace 5
 bindsym $super+Shift+6 move container to workspace 6
 bindsym $super+Shift+7 move container to workspace 7
-bindsym $super+Shift+8 move container to workspace 8
 
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $super+Shift+r restart
@@ -148,9 +147,27 @@ mode "resize" {
 bindsym $super+r mode "resize"
 
 set $cyan_color '#02FFBF'
+set $white_color '#FFFFFF'
 # Panel
+#bar {
+    #status_command i3status | i3status-title-on-bar --color $cyan_color
+#}
+# panel
 bar {
-    status_command i3status | i3status-title-on-bar --color $cyan_color
+        font pango: FiraCode Nerd Font 10
+        colors {
+        #background #2f343f
+        background #1e1e1e
+        statusline #2f343f
+        separator #4b5262
+
+        # colour of border, background, and text
+        focused_workspace       #2f343f #bf616a #d8dee8
+        active_workspace        #2f343f #2f343f #d8dee8
+        inactive_workspace      #2f343f #2f343f #d8dee8
+        urgent_workspacei       #2f343f #ebcb8b #2f343f
+    }
+        status_command i3status | i3status-title-on-bar --color $white_color
 }
 
 # Window rules, you can find the window class using xprop
@@ -161,7 +178,7 @@ assign [class=Thunar|File-roller] 3
 assign [class=Geany|Evince|Gucharmap|Soffice|libreoffice*|Isabelle2021] 4
 assign [class=Audacity|Vlc|mpv|Ghb|Xfburn|Gimp*|Inkscape] 5
 #assign [class=Lxappearance|System-config-printer.py|Lxtask|GParted|Exo-helper*|Lxrandr|Arandr] 6
-for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol] floating enable
+for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol|copyq] floating enable
 for_window [class=URxvt|Firefox|Geany|Evince|Soffice|libreoffice*|mpv|Ghb|Xfburn|Gimp*|Inkscape|Vlc|Lxappearance|Audacity] focus
 for_window [class=Xfburn|GParted|System-config-printer.py|Lxtask|Pavucontrol|Exo-helper*|Lxrandr|Arandr] focus
 
@@ -194,11 +211,9 @@ set $laptopmonitor eDP-1
 
 workspace 1 output $laptopmonitor 
 workspace 2 output $laptopmonitor
-workspace 3 output $laptopmonitor
-workspace 4 output $laptopmonitor
+workspace 3 output $hdmimonitor $laptopmonitor
+workspace 4 output $hdmimonitor $laptopmonitor
 workspace 5 output $hdmimonitor $laptopmonitor
 workspace 6 output $hdmimonitor $laptopmonitor
-workspace 7 output $hdmimonitor $laptopmonitor
-workspace 8 output $hdmimonitor $laptopmonitor
 
 # I use autorandr + nitrogen to manage dual monitors
