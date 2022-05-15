@@ -11,11 +11,11 @@ uptime=$(uptime -p | sed -e 's/up //g')
 rofi_command="rofi -theme $dir/powermenu.rasi"
 
 # Options
-shutdown=" Shutdown"
-reboot=" Restart"
-lock=" Lock"
-suspend=" Sleep"
-logout=" Logout"
+shutdown="  Shutdown"
+reboot="  Restart"
+lock="  Lock"
+suspend="  Sleep"
+logout=" 﫼 Logout"
 
 # Confirmation
 confirm_exit() {
@@ -57,7 +57,9 @@ case $chosen in
         fi
         ;;
     $lock)
-		if [[ -f /usr/bin/i3lock ]]; then
+        if [[ -f ~/bin/i3lock-blur ]]; then
+            i3lock-blur
+        elif [[ -f /usr/bin/i3lock ]]; then
 			i3lock
 		elif [[ -f /usr/bin/betterlockscreen ]]; then
 			betterlockscreen -l
