@@ -28,6 +28,7 @@ copy_if_exists ~/.config/qtile ~/dotfiles/config
 copy_if_exists ~/.config/rofi/config.rasi ~/dotfiles/config
 copy_if_exists ~/.config/i3 ~/dotfiles/config
 copy_if_exists ~/.config/i3status ~/dotfiles/config
+copy_if_exists ~/.config/polybar ~/dotfiles/config
 
 # powerlevel10k config
 cp ~/.p10k.zsh ~/dotfiles/rc
