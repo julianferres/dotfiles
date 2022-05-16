@@ -151,12 +151,9 @@ show_notify(){
     if [[ -z $NOTIFY_ICON ]]; then
         if [[ -f $GNOME_ICON ]]; then
             NOTIFY_ICON="${GNOME_ICON}"
-        elif [[ -f $XFCE_ICON ]]; then
-            NOTIFY_ICON="${XFCE_ICON}"
         fi
     fi
-    [[ -n $NOTIFY_ICON ]] && NOTIFY_OPT="-i ${NOTIFY_ICON}"
-    notify-send -u critical "${1}" ${NOTIFY_OPT}
+    notify-send -u critical "${1}" -i battery-low
 }
 
 play_sound(){
