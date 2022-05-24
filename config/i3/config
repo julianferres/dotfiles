@@ -27,7 +27,10 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id i3-battery-popup -n -t 5s -L 15 -l 5 -s ~/.config/i3/i3-battery-popup.wav
 # Keyring
 exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh,secrets,pkcs11
-
+# Spanish layout in keyboard
+exec --no-startup-id setxkbmap -layout latam 
+# Mate power management
+exec --no-startup-id mate-power-manager
 
 #####################
 ### Keybindings   ###
@@ -176,29 +179,21 @@ set $white_color '#FFFFFF'
     #}
         #status_command i3status | i3status-title-on-bar --color $white_color
 #}
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh --forest
+ exec_always --no-startup-id $HOME/.config/polybar/launch.sh --forest
 
 # Window rules, you can find the window class using xprop
-for_window [class=".*"] border pixel 2
+for_window [class=".*"] border pixel 3
 assign [class=URxvt] 1
 assign [class=Firefox|Transmission-gtk] 2
-assign [class=Thunar|File-roller] 3
-assign [class=Geany|Evince|Gucharmap|Soffice|libreoffice*|Isabelle2021] 4
+assign [class=Geany|Gucharmap|Soffice|libreoffice*|Isabelle2021] 4
 assign [class=Audacity|Vlc|mpv|Ghb|Xfburn|Gimp*|Inkscape] 5
-#assign [class=Lxappearance|System-config-printer.py|Lxtask|GParted|Exo-helper*|Lxrandr|Arandr] 6
-for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol|copyq|Gpick] floating enable
+assign [class=Lxappearance|System-config-printer.py|Lxtask|GParted|Exo-helper*|Lxrandr|Arandr|Telegram] 6
+for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol|Power*|copyq|Gpick] floating enable
 for_window [class=URxvt|Firefox|Geany|Evince|Soffice|libreoffice*|mpv|Ghb|Xfburn|Gimp*|Inkscape|Vlc|Lxappearance|Audacity] focus
 for_window [class=Xfburn|GParted|System-config-printer.py|Lxtask|Pavucontrol|Exo-helper*|Lxrandr|Arandr] focus
 
 # colour of border, background, text, indicator, and child_border
-#client.focused              #bf616a #2f343f #d8dee8 #bf616a #d8dee8
-#client.focused_inactive     #2f343f #2f343f #d8dee8 #2f343f #2f343f
-#client.unfocused            #2f343f #2f343f #d8dee8 #2f343f #2f343f
-#client.urgent               #2f343f #2f343f #d8dee8 #2f343f #2f343f
-#client.placeholder          #2f343f #2f343f #d8dee8 #2f343f #2f343f
-#client.background           #2f343f
-
-client.focused              #bf616a #bf616a #d8dee8 #bf616a #ffffff
+client.focused              #bf616a #2f343f #d8dee8 #bf616a #d8dee8
 client.focused_inactive     #2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.unfocused            #2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.urgent               #2f343f #2f343f #d8dee8 #2f343f #2f343f

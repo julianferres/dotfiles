@@ -30,6 +30,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'lambdalisue/suda.vim'
+Plug 'ap/vim-css-color'
 Plug 'cplaursen/vim-isabelle'
 Plug 'lervag/vimtex'
 Plug 'machakann/vim-highlightedyank'

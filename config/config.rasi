@@ -137,4 +137,15 @@ element-text, element-icon {
     background-color: inherit;
     text-color: inherit;
 }
-@theme "/usr/share/rofi/themes/Arc-Dark.rasi"
+//@theme "/usr/share/rofi/themes/Arc-Dark.rasi"
+//@theme "/usr/share/rofi/themes/purple.rasi"
+//@theme "/home/julian/.local/share/rofi/themes/spotlight-dark.rasi"
+//@theme "/home/julian/.local/share/rofi/themes/rounded-blue-dark.rasi"
+//@theme "/home/julian/.local/share/rofi/themes/rounded-blue-dark.rasi"
+//@theme "/home/julian/.local/share/rofi/themes/nord.rasi"
+//@theme "/home/julian/.local/share/rofi/themes/dracula.rasi"
+//@theme "/usr/share/rofi/themes/DarkBlue.rasi"
+//@theme "/usr/share/rofi/themes/DarkBlue.rasi"
+//@theme "/usr/share/rofi/themes/paper-float.rasi"
+//@theme "/usr/share/rofi/themes/purple.rasi"
+@theme "/usr/share/rofi/themes/DarkBlue.rasi"
