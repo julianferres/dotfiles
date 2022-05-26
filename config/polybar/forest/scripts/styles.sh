@@ -68,9 +68,18 @@ elif  [[ $1 = "--cherry" ]]; then
 	AC="#D94084"
 	SE="#4F5D95"
 	change_color
+elif [[ $1 = "--dracula" ]]; then
+    #BG="#282a36"
+    BG="#171e30"
+    FG="#f8f8f2"
+    BGA="#292030"
+    SEP="#473F4E"
+    AC="#D94084"
+    SE="#4F5D95"
+    change_color
 else
 	cat <<- _EOF_
 	No option specified, Available options:
-	--default    --nord    --gruvbox    --dark    --cherry
+	--default    --nord    --gruvbox    --dark    --cherry --dracula
 	_EOF_
 fi
