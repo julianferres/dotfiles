@@ -148,4 +148,6 @@ element-text, element-icon {
 //@theme "/usr/share/rofi/themes/DarkBlue.rasi"
 //@theme "/usr/share/rofi/themes/paper-float.rasi"
 //@theme "/usr/share/rofi/themes/purple.rasi"
+//@theme "/usr/share/rofi/themes/DarkBlue.rasi"
+//@theme "/home/julian/.local/share/rofi/themes/dracula.rasi"
 @theme "/usr/share/rofi/themes/DarkBlue.rasi"

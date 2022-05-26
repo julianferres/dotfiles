@@ -31,6 +31,8 @@ exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh,secr
 exec --no-startup-id setxkbmap -layout latam 
 # Mate power management
 exec --no-startup-id mate-power-manager
+# Theme settings across gnome and i3wm
+exec --no-startup-id /usr/libexec/gsd-xsettings
 
 #####################
 ### Keybindings   ###
@@ -39,9 +41,9 @@ exec --no-startup-id mate-power-manager
 # Launch a terminal
 bindsym $super+Return exec alacritty
 
-# start dmenu (a program launcher)
-bindsym $super+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'JetBrains Mono:size=12'"
-bindsym $super+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 4 -font 'JetBrains Mono 12'
+# Rofi commands (a program launcher)
+bindsym $super+Shift+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 4 -font 'JetBrains Mono 12'
+bindsym $super+d exec rofi -combi-modi run#drun -lines 12 -padding 18 -width 60 -location 0 -font "JetBrains Mono 12" -show combi
 bindsym $super+Tab exec rofi -show window -font 'JetBrains Mono 12'
 
 # common apps keybinds
@@ -193,7 +195,14 @@ for_window [class=URxvt|Firefox|Geany|Evince|Soffice|libreoffice*|mpv|Ghb|Xfburn
 for_window [class=Xfburn|GParted|System-config-printer.py|Lxtask|Pavucontrol|Exo-helper*|Lxrandr|Arandr] focus
 
 # colour of border, background, text, indicator, and child_border
-client.focused              #bf616a #2f343f #d8dee8 #bf616a #d8dee8
+#client.focused              #bf616a #2f343f #d8dee8 #bf616a #d8dee8
+#client.focused_inactive     #2f343f #2f343f #d8dee8 #2f343f #2f343f
+#client.unfocused            #2f343f #2f343f #d8dee8 #2f343f #2f343f
+#client.urgent               #2f343f #2f343f #d8dee8 #2f343f #2f343f
+#client.placeholder          #2f343f #2f343f #d8dee8 #2f343f #2f343f
+#client.background           #2f343f
+
+client.focused              #bf616a #bf616a #d8dee8 #bf616a #ffffff
 client.focused_inactive     #2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.unfocused            #2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.urgent               #2f343f #2f343f #d8dee8 #2f343f #2f343f
