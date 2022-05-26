@@ -99,6 +99,7 @@ set smartindent         " even better autoindent (e.g. add indent after '{')
 set smarttab
 
 """" Search settings
+set ignorecase
 set smartcase           " start case-insensitive, as soon as a capital letter appears, switch to case-sensitive
 set incsearch           " search as characters are entered
 set hlsearch            " highlight matches
