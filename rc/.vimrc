@@ -9,6 +9,7 @@ set laststatus=2            " always show statusline (even with only single wind
 set ruler                   " show line and column number of the cursor on right side of statusline
 set visualbell 
 set signcolumn=number       " show line number on statusline
+set nowrap                  " Avoid wrapping lines
 
 " Permanent undo
 set undodir=~/.vim/undodir
@@ -81,6 +82,8 @@ nnoremap <CR> :noh<CR><CR>
 nmap <leader><leader> <c-^>
 nmap <Leader>x <Esc>:wq<cr>
 nnoremap <Leader>, :set invlist<cr>
+nmap <A-z> <Esc>:set wrap!<cr>
+
 
 " use filetype-based syntax highlighting, ftplugins, and indentation
 syntax enable

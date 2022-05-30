@@ -24,16 +24,16 @@
     # dynamic width from 0 to 300
     #width = (0, 300)
     # constant width of 300
-    width = 300
+    #width = 300
 
     # The maximum height of a single notification, excluding the frame.
-    height = 300
+    #height = 300
 
     # Position the notification in the top right corner
     origin = top-right
 
     # Offset from the origin
-    offset = 10x50
+    offset = 10x30
 
     # Scale factor. It is auto-detected if value is 0.
     scale = 0
@@ -60,15 +60,17 @@
     # Set the maximum width for the progress bar
     progress_bar_max_width = 300
 
-
     # Show how many messages are currently hidden (because of
     # notification_limit).
     indicate_hidden = yes
 
+    # Shrink if the size of the notification is smaller
+    shrink = yes
+
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing window manager is
     # present (e.g. xcompmgr, compiz, etc.). (X11 only)
-    geometry = "300x5-30+20"
+    geometry = "400x300-20+20"
     transparency = 5
 
     # Draw a line of "separator_height" pixel height between two
@@ -98,7 +100,7 @@
     #  * foreground: use the same color as the foreground;
     #  * frame: use the same color as the frame;
     #  * anything else will be interpreted as a X color.
-    separator_color = frame
+    separator_color = auto
 
     # Sort messages by urgency.
     sort = yes
@@ -152,7 +154,7 @@
     #   %n  progress value if set without any extra characters
     #   %%  Literal %
     # Markup is allowed
-    format = "%s %p\n%b"
+    #format = "%s %p\n%b"
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right".
@@ -167,15 +169,17 @@
     # Set to -1 to disable.
     show_age_threshold = 60
 
+    word_wrap = yes
+
     # Specify where to make an ellipsis in long lines.
     # Possible values are "start", "middle" and "end".
-    ellipsize = middle
+    #ellipsize = middle
 
     # Ignore newlines '\n' in notifications.
     ignore_newline = no
 
     # Stack together notifications with the same content
-    stack_duplicates = false
+    stack_duplicates = true
 
     # Hide the count of stacked notifications with the same content
     hide_duplicate_count = false
