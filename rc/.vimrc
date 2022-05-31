@@ -25,14 +25,15 @@ let mapleader=" "
 " ================== Plugins =========================
 
 call plug#begin('~/.vim/plugged')
-Plug 'dracula/vim', { 'as': 'dracula' } 
 "Plug 'github/copilot.vim'
+Plug 'SirVer/ultisnips'
+Plug 'ap/vim-css-color'
+Plug 'cplaursen/vim-isabelle'
+Plug 'dracula/vim', { 'as': 'dracula' } 
 Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'lambdalisue/suda.vim'
-Plug 'ap/vim-css-color'
-Plug 'cplaursen/vim-isabelle'
 Plug 'lervag/vimtex'
 Plug 'machakann/vim-highlightedyank'
 Plug 'mbbill/undotree'
@@ -42,10 +43,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'patstockwell/vim-monokai-tasty'
-Plug 'SirVer/ultisnips'
 Plug 'preservim/nerdcommenter'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
+Plug 'searleser97/cpbooster.vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'

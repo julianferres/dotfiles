@@ -149,6 +149,7 @@ alias i3statusconfig="vim ~/.config/i3status/config"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias polybarconfig="vim ~/.config/polybar/forest"
 alias dunstconfig="vim ~/.config/dunst/dunstrc"
+alias picomconfig="vim ~/.config/picom/picom.conf"
 alias open="xdg-open"
 
 alias ncdu="ncdu --color=dark"
@@ -158,6 +159,10 @@ alias cat="bat"
 alias gaa="git add -A"
 alias gcm="git commit -m"
 alias gp="git push"
+
+# Lazy-something alias
+alias lg='lazygit'
+alias lzd='lazydocker'
 
 # Themes
 function good-morning(){
@@ -235,9 +240,14 @@ fi
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
-export PATH=/home/julian/Applications:$PATH
-export PATH=/home/julian/bin:$PATH
-export PATH=/home/julian/.local/bin:$PATH
+export PATH=$PATH:/home/julian/Applications
+export PATH=$PATH:/home/julian/bin
+export PATH=$PATH:/home/julian/.local/bin
+export PATH=$PATH:/usr/local/go/bin
+
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
 
 
 export NVM_DIR="$HOME/.nvm"
@@ -255,3 +265,4 @@ export BAT_THEME="Dracula"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+

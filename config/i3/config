@@ -45,7 +45,7 @@ bindsym $super+Return exec alacritty
 
 # Rofi commands (a program launcher)
 bindsym $super+Shift+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 4 -font 'JetBrains Mono 12'
-bindsym $super+d exec rofi -combi-modi run#drun -lines 12 -padding 18 -width 60 -location 0 -font "JetBrains Mono 12" -show combi
+bindsym $super+d exec rofi -combi-modi drun#run -lines 12 -padding 18 -width 60 -location 0 -font "JetBrains Mono 12" -show combi
 bindsym $super+Tab exec rofi -show window -font 'JetBrains Mono 12'
 
 # common apps keybinds
