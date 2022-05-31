@@ -36,16 +36,20 @@ Plug 'junegunn/fzf.vim'
 Plug 'lambdalisue/suda.vim'
 Plug 'lervag/vimtex'
 Plug 'machakann/vim-highlightedyank'
+Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-startify'
 Plug 'mxw/vim-jsx'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'patstockwell/vim-monokai-tasty'
 Plug 'preservim/nerdcommenter'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
+Plug 'searleser97/cpbooster.vim'
 Plug 'searleser97/cpbooster.vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -119,13 +123,13 @@ set clipboard=unnamedplus    " afaik, this links global clipboard
 "filetype off                  " required
 
 " ==== fzf ==== 
-map <C-p> :Files<CR>
-map <C-t> :Rg<CR>
+"map <C-p> :Files<CR>
+"map <C-t> :Rg<CR>
 "let g:fzf_action = { 'enter': 'tab split' }
-let g:fzf_preview_window = ['right:50%', 'ctrl-/']
-let g:fzf_layout = { 'window': { 'width': 1.0, 'height': 0.5, 'relative': v:true, 'yoffset': 1.0 } }
-let $FZF_DEFAULT_OPTS='--reverse'
-filetype plugin indent on    " required
+"let g:fzf_preview_window = ['right:50%', 'ctrl-/']
+"let g:fzf_layout = { 'window': { 'width': 1.0, 'height': 0.5, 'relative': v:true, 'yoffset': 1.0 } }
+"let $FZF_DEFAULT_OPTS='--reverse'
+"filetype plugin indent on    " required
 
 " ==== NERDTree ====
 nmap <F6> :NERDTreeToggle<CR>
@@ -137,6 +141,13 @@ nnoremap <F7> :UndotreeToggle<CR>
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 map <Leader>s <Plug>(easymotion-s2)
 map <Leader>w <Plug>(easymotion-w)
+
+" Find files using Telescope command-line sugar.
+nnoremap <C-p> <cmd>Telescope find_files<cr>
+nnoremap <C-t> <cmd>Telescope live_grep<cr>
+nnoremap <leader><leader> <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
 
 "hi signcolumn ctermbg=235
 "let g:gruvbox_contrast_dark = 'hard'
@@ -203,19 +214,6 @@ for _, lsp in pairs(servers) do
   }
 end
 EOF
-
-
-" ==== Startify ====
-let g:startify_custom_header = [
-      \  '                                  __                  ',
-      \  '     ___     ___    ___   __  __ /\_\    ___ ___      ',
-      \  '    / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\    ',
-      \  '   /\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \   ',
-      \  '   \ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\  ',
-      \  '    \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/  ',
-      \ ]
-
-
 
 "" Disable Arrow keys in Normal mode
 "noremap <up> <nop>
