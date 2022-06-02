@@ -17,6 +17,7 @@ exec --no-startup-id xinput set-prop 'Synaptics TM3096-006' 'libinput Tapping En
 exec --no-startup-id xinput set-prop 'Synaptics TM3096-006' 'libinput Natural Scrolling Enabled' 1
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id nm-applet --sm-disable
+exec --no-startup-id python3 /opt/warp-cloudflare-gui/main.py --hide
 #exec --no-startup-id pasystray
 #exec --no-startup-id mictray
 # Popup notification when battery is 15 and 5
@@ -35,6 +36,8 @@ exec --no-startup-id mate-power-manager
 exec --no-startup-id /usr/libexec/gsd-xsettings
 # Compositor
 exec --no-startup-id picom
+# Clipboard manager
+exec --no-startup-id diodon
 
 #####################
 ### Keybindings   ###
@@ -44,9 +47,9 @@ exec --no-startup-id picom
 bindsym $super+Return exec alacritty
 
 # Rofi commands (a program launcher)
-bindsym $super+Shift+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 4 -font 'JetBrains Mono 12'
-bindsym $super+d exec rofi -combi-modi drun#run -lines 12 -padding 18 -width 60 -location 0 -font "JetBrains Mono 12" -show combi
-bindsym $super+Tab exec rofi -show window -font 'JetBrains Mono 12'
+bindsym $super+Shift+d exec rofi -show-icons -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 4 -font 'JetBrains Mono 12'
+bindsym $super+d exec rofi -combi-modi drun#run -show-icons -lines 12 -padding 18 -width 60 -location 0 -font "JetBrains Mono 12" -show combi
+bindsym $super+Tab exec rofi -show window -show-icons -font 'JetBrains Mono 12'
 
 # common apps keybinds
 bindsym $super+w exec i3lock-blur
@@ -118,6 +121,8 @@ bindsym $super+Shift+space focus mode_toggle
 
 bindsym $super+comma scratchpad show
 bindsym $super+period move scratchpad
+
+bindsym Control+$alt+v exec diodon
 
 # Switch to workspace
 bindsym $alt+Control+Right workspace next

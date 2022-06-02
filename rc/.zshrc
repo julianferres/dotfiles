@@ -150,6 +150,8 @@ alias ohmyzsh="vim ~/.oh-my-zsh"
 alias polybarconfig="vim ~/.config/polybar/forest"
 alias dunstconfig="vim ~/.config/dunst/dunstrc"
 alias picomconfig="vim ~/.config/picom/picom.conf"
+alias cpboosterconfig="vim ~/.config/cpbooster/cpbooster-config.json"
+
 alias open="xdg-open"
 
 alias ncdu="ncdu --color=dark"
@@ -163,6 +165,9 @@ alias gp="git push"
 # Lazy-something alias
 alias lg='lazygit'
 alias lzd='lazydocker'
+
+# Cpbooster
+alias cpb="cpbooster"
 
 # Themes
 function good-morning(){
@@ -181,45 +186,6 @@ function good-night(){
     # Cursor theme
     gsettings set org.gnome.desktop.interface cursor-theme "DeppinWhite-cursors"
 }
-
-
-fzf-git-checkout() {
-    git rev-parse HEAD > /dev/null 2>&1 || return
-
-    local branch
-
-    branch=$(fzf-git-branch)
-    if [[ "$branch" = "" ]]; then
-        echo "No branch selected."
-        return
-    fi
-
-    # If branch name starts with 'remotes/' then it is a remote branch. By
-    # using --track and a remote branch name, it is the same as:
-    # git checkout -b branchName --track origin/branchName
-    if [[ "$branch" = 'remotes/'* ]]; then
-        git checkout --track $branch
-    else
-        git checkout $branch;
-    fi
-}
-
-fzf-git-branch() {
-    git rev-parse HEAD > /dev/null 2>&1 || return
-
-    git branch --color=always --all --sort=-committerdate |
-        grep -v HEAD |
-        fzf --height 50% --ansi --no-multi --preview-window right:65% \
-            --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed "s/.* //" <<< {})' |
-        sed "s/.* //"
-}
-
-alias gb='fzf-git-branch'
-alias gcol='fzf-git-checkout'
-
-
-##History variables
-## grip es el programa que pasa de markdown a pdf
 
 if type rg &> /dev/null; then
     export FZF_ALT_C_COMMAND='fdfind'
