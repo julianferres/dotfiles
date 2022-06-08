@@ -192,15 +192,18 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh --forest
 
 # Window rules, you can find the window class using xprop
 focus_on_window_activation focus
-for_window [class=".*"] border pixel 3
-assign [class=URxvt] 1
-assign [class=Firefox|Transmission-gtk] 2
-assign [class=Geany|Gucharmap|Soffice|libreoffice*|Isabelle2021] 4
-assign [class=Audacity|Vlc|mpv|Ghb|Xfburn|Gimp*|Inkscape] 5
-assign [class=Lxappearance|System-config-printer.py|Lxtask|GParted|Exo-helper*|Lxrandr|Arandr|Telegram] 6
+for_window [class=".*"] border pixel 4
+#assign [class=URxvt] 1
+#assign [class=Firefox|Tansmission-gtk] 2
+#assign [class=Geany|Gucharmap|Soffice|libreoffice*|Isabelle2021] 4
+#assign [class=Audacity|Vlc|mpv|Ghb|Xfburn|Gimp*|Inkscape] 5
+#assign [class=Lxappearance|System-config-printer.py|Lxtask|GParted|Exo-helper*|Lxrandr|Arandr|Telegram] 6
 for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Blue*|Lxtask|Pavucontrol|Power*|copyq|Gpick] floating enable
 for_window [class=URxvt|Firefox|Geany|Evince|Soffice|libreoffice*|mpv|Ghb|Xfburn|Gimp*|Inkscape|Vlc|Lxappearance|Audacity] focus
 for_window [class=Xfburn|File-roller|GParted|System-config-printer.py|Lxtask|Pavucontrol|Exo-helper*|Lxrandr|Arandr] focus
+for_window [title="Sign*"] floating enable
+for_window [window_type=popup_menu] floating enable
+
 
 # colour of border, background, text, indicator, and child_border
 #client.focused              #bf616a #2f343f #d8dee8 #bf616a #d8dee8

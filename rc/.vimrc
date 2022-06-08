@@ -21,42 +21,48 @@ autocmd VimLeave * silent !stty ixon
 
 " Leader map
 let mapleader=" "
+let localleader=","
 
 " ================== Plugins =========================
 
 call plug#begin('~/.vim/plugged')
-"Plug 'github/copilot.vim'
-Plug 'SirVer/ultisnips'
+" Sytax and Autocomplete
+"""Plug 'github/copilot.vim'
 Plug 'ap/vim-css-color'
 Plug 'cplaursen/vim-isabelle'
+Plug 'mxw/vim-jsx'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neovim/nvim-lspconfig'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'rust-lang/rust.vim'
+" UI
 Plug 'dracula/vim', { 'as': 'dracula' } 
+Plug 'mhinz/vim-startify'
+Plug 'patstockwell/vim-monokai-tasty'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Latex
+Plug 'lervag/vimtex'
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+" Utilities
+Plug 'SirVer/ultisnips'
 Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'lambdalisue/suda.vim'
-Plug 'lervag/vimtex'
 Plug 'machakann/vim-highlightedyank'
-Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'mbbill/undotree'
-Plug 'mhinz/vim-startify'
-Plug 'mxw/vim-jsx'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'patstockwell/vim-monokai-tasty'
+Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'preservim/nerdcommenter'
-Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'searleser97/cpbooster.vim'
-Plug 'searleser97/cpbooster.vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'voldikss/vim-floaterm'
+" Competitive programming
+Plug 'searleser97/cpbooster.vim'
 call plug#end()
 
 
@@ -85,7 +91,7 @@ nnoremap <CR> :noh<CR><CR>
 
 " Jump between buffers
 nmap <leader><leader> <c-^>
-nmap <Leader>x <Esc>:wq<cr>
+nmap <Leader>q <Esc>:bd<cr>
 nnoremap <Leader>, :set invlist<cr>
 nmap <A-z> <Esc>:set wrap!<cr>
 
@@ -133,9 +139,9 @@ set clipboard=unnamedplus    " afaik, this links global clipboard
 
 " ==== NERDTree ====
 nmap <F6> :NERDTreeToggle<CR>
+nnoremap <F10> :UndotreeToggle<CR>
 
 " ==== Undotree ====
-nnoremap <F7> :UndotreeToggle<CR>
 
 " ==== easymotion ==== 
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
@@ -145,7 +151,7 @@ map <Leader>w <Plug>(easymotion-w)
 " Find files using Telescope command-line sugar.
 nnoremap <C-p> <cmd>Telescope find_files<cr>
 nnoremap <C-t> <cmd>Telescope live_grep<cr>
-nnoremap <leader><leader> <cmd>Telescope buffers<cr>
+"nnoremap <leader><leader> <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 
@@ -192,28 +198,36 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " ==== floaterm ==== 
 nnoremap   <silent>   <F12>   :FloatermToggle<CR>
 tnoremap   <silent>   <F12>   <C-\><C-n>:FloatermToggle<CR>
-let g:floaterm_height = 0.5
-let g:floaterm_width = 1.0
-let g:floaterm_wintype = 'float'
-let g:floaterm_position = 'bottom'
+"let g:floaterm_height = 0.5
+"let g:floaterm_width = 1.0
+"let g:floaterm_wintype = 'float'
+"let g:floaterm_position = 'bottom'
 
 " ==== UltiSnips ====
 let g:UltiSnipsExpandTrigger="<F5>" 
 
+" ==== Compile latex ====
+"autocmd filetype tex nnoremap <F9> :w <bar>!latexmk -interaction=nonstopmode -pdf >/dev/null 2>&1 <cr><cr>
+"autocmd filetype tex nnoremap <F9> :VimtexCompile<cr>
+let g:vimtex_view_general_viewer = 'evince'
+
+
+
+
 " ==== lsp configs ====
 " LSP config commands
-lua << EOF
-local servers = { 'pyright', 'clangd', 'rust_analyzer', 'tsserver' }
-for _, lsp in pairs(servers) do
-  require('lspconfig')[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      -- This will be the default in neovim 0.7+
-      debounce_text_changes = 150,
-    }
-  }
-end
-EOF
+"lua << EOF
+"local servers = { 'pyright', 'clangd', 'rust_analyzer', 'tsserver' }
+"for _, lsp in pairs(servers) do
+  "require('lspconfig')[lsp].setup {
+    "on_attach = on_attach,
+    "flags = {
+      "-- This will be the default in neovim 0.7+
+      "debounce_text_changes = 150,
+    "}
+  "}
+"end
+"EOF
 
 "" Disable Arrow keys in Normal mode
 "noremap <up> <nop>
@@ -226,7 +240,4 @@ EOF
 "inoremap <down> <nop>
 "inoremap <left> <nop>
 "inoremap <right> <nop>
-
-" ==== Competitive Programming ====
-nnoremap <Leader>cp :r ~/CP/templates/problem/main.cpp
 

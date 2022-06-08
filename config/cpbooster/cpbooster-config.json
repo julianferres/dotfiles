@@ -12,8 +12,8 @@
   "languages": {
     "cpp": {
       "template": "~/CP/templates/problem/main.cpp",
-      "command": "g++ -std=gnu++17 -O2",
-      "debugCommand": "g++ -std=gnu++17 -DDEBUG -Wshadow -Wall",
+      "command": "g++ -std=c++17 -O2 -g -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -Wno-unused-result -Wno-sign-conversion -DLOCAL",
+      "debugCommand": "g++ -std=c++17 -O2 -g -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -Wno-unused-result -Wno-sign-conversion -DLOCAL -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fstack-protector -D_FORTIFY_SOURCE=2",
       "aliases": {
         "codeforces": "61",
         "atcoder": "4003",
