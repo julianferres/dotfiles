@@ -21,7 +21,7 @@ autocmd VimLeave * silent !stty ixon
 
 " Leader map
 let mapleader=" "
-let localleader=","
+let maplocalleader = ","
 
 " ================== Plugins =========================
 
@@ -44,6 +44,9 @@ Plug 'vim-airline/vim-airline-themes'
 " Latex
 Plug 'lervag/vimtex'
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 " Utilities
 Plug 'SirVer/ultisnips'
 Plug 'easymotion/vim-easymotion'
@@ -208,10 +211,8 @@ let g:UltiSnipsExpandTrigger="<F5>"
 
 " ==== Compile latex ====
 "autocmd filetype tex nnoremap <F9> :w <bar>!latexmk -interaction=nonstopmode -pdf >/dev/null 2>&1 <cr><cr>
-"autocmd filetype tex nnoremap <F9> :VimtexCompile<cr>
+autocmd filetype tex nnoremap <F9> :VimtexCompile<cr>
 let g:vimtex_view_general_viewer = 'evince'
-
-
 
 
 " ==== lsp configs ====
@@ -240,4 +241,3 @@ let g:vimtex_view_general_viewer = 'evince'
 "inoremap <down> <nop>
 "inoremap <left> <nop>
 "inoremap <right> <nop>
-

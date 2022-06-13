@@ -210,6 +210,7 @@ export PATH=$PATH:/home/julian/Applications
 export PATH=$PATH:/home/julian/bin
 export PATH=$PATH:/home/julian/.local/bin
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/home/julian/Isabelle2021/bin
 
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
