@@ -31,7 +31,6 @@ copy_if_exists ~/.config/i3status ~/dotfiles/config
 copy_if_exists ~/.config/polybar ~/dotfiles/config
 copy_if_exists ~/.config/dunst ~/dotfiles/config
 copy_if_exists ~/.config/cpbooster ~/dotfiles/config
-copy_if_exists ~/.config/nvim ~/dotfiles/config
 copy_if_exists ~/Pictures/Wallpapers ~/dotfiles
 
 # powerlevel10k config
