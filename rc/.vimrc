@@ -48,7 +48,7 @@ Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 " Utilities
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
 Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -93,7 +93,7 @@ imap <c-s> <Esc>:w<cr>
 nnoremap <CR> :noh<CR><CR>
 
 " Jump between buffers
-nmap <leader><leader> <c-^>
+"nmap <leader><leader> <c-^>
 nmap <Leader>q <Esc>:bd<cr>
 nnoremap <Leader>, :set invlist<cr>
 nmap <A-z> <Esc>:set wrap!<cr>
@@ -154,7 +154,7 @@ map <Leader>w <Plug>(easymotion-w)
 " Find files using Telescope command-line sugar.
 nnoremap <C-p> <cmd>Telescope find_files<cr>
 nnoremap <C-t> <cmd>Telescope live_grep<cr>
-"nnoremap <leader><leader> <cmd>Telescope buffers<cr>
+nnoremap <leader><leader> <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 

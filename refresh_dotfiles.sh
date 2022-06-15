@@ -32,6 +32,7 @@ copy_if_exists ~/.config/polybar ~/dotfiles/config
 copy_if_exists ~/.config/dunst ~/dotfiles/config
 copy_if_exists ~/.config/cpbooster ~/dotfiles/config
 copy_if_exists ~/Pictures/Wallpapers ~/dotfiles
+copy_if_exists ~/.config/autorandr ~/dotfiles/config
 
 # powerlevel10k config
 cp ~/.p10k.zsh ~/dotfiles/rc

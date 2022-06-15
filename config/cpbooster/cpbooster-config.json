@@ -1,7 +1,7 @@
 {
   "contestsDirectory": "/home/julian/CP",
   "port": 1327,
-  "editor": "subl",
+  "editor": "alacritty",
   "closeAfterClone": false,
   "showStatusPageOnSubmit": true,
   "useUserDefaultBrowser": true,
