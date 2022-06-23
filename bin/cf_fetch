@@ -6,7 +6,7 @@ import signal
 import subprocess
 from colored import fg
 
-PORT = 10046
+PORT = 1327
 TEMPLATE_FILE = '/home/julian/CP/templates/problem/main.cpp'
 
 # Returns unmarshalled or None

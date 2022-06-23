@@ -45,9 +45,13 @@ exec --no-startup-id diodon
 bindsym $super+Return exec alacritty
 
 # Rofi commands (a program launcher)
-bindsym $super+Shift+d exec rofi -show-icons -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 4 -font 'JetBrains Mono 12'
+#bindsym $super+Shift+d exec rofi -show-icons -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 4 -font 'JetBrains Mono 12'
 bindsym $super+d exec rofi -combi-modi drun#run -show-icons -lines 12 -padding 18 -width 60 -location 0 -font "JetBrains Mono 12" -show combi
 bindsym $super+Tab exec rofi -show window -show-icons -font 'JetBrains Mono 12'
+bindsym $super+Shift+d exec tmux-session
+
+bindsym $super+Shift+m exec rofi-autorandr
+bindsym $super+Control+m exec xrandrmenu
 
 # common apps keybinds
 bindsym $super+w exec i3lock-blur

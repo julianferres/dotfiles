@@ -22,6 +22,7 @@ typedef vector<ii> vii; typedef vector<bool> vb;
 #define forr(i, a, b) for(ll i = (a); i < (ll) (b); i++)
 #define forn(i, n) forr(i, 0, n)
 #define SZ(x) ((int) ((x)).size())
+#define RAYA cerr << "===============================" << endl
 #define pb push_back
 #define mp make_pair
 #define all(c) (c).begin(),(c).end()

@@ -103,7 +103,8 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-export EDITOR='vim'
+export EDITOR='nvim'
+export TERMINAL='alacritty'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -133,6 +134,7 @@ function refresh_dotfiles(){
 alias v="nvim"
 alias vim="nvim"
 alias p="python3"
+alias python="python3"
 alias grep="grep --color=auto"
 
 # Switch to exa instead of ls

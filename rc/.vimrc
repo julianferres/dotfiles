@@ -32,7 +32,6 @@ Plug 'ap/vim-css-color'
 Plug 'cplaursen/vim-isabelle'
 Plug 'mxw/vim-jsx'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'neovim/nvim-lspconfig'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'rust-lang/rust.vim'
 " UI
@@ -43,7 +42,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Latex
 Plug 'lervag/vimtex'
-Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -64,8 +62,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'voldikss/vim-floaterm'
-" Competitive programming
-Plug 'searleser97/cpbooster.vim'
 call plug#end()
 
 
@@ -74,6 +70,8 @@ call plug#end()
 " Move vertically by visual line (don't skip wrapped lines)
 nmap j gj
 nmap k gk
+nmap <up> gk
+nmap <down> gj
 nmap E ge
 map H ^
 map L $
@@ -198,46 +196,35 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Use <c-space> to trigger completion in neovim with ctrl+space
 inoremap <silent><expr> <c-space> coc#refresh()
 
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <silent> <F2> <Plug>(coc-rename)
+nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>cl  <Plug>(coc-codelens-action)
+
 " ==== floaterm ==== 
 nnoremap   <silent>   <F12>   :FloatermToggle<CR>
 tnoremap   <silent>   <F12>   <C-\><C-n>:FloatermToggle<CR>
-"let g:floaterm_height = 0.5
-"let g:floaterm_width = 1.0
-"let g:floaterm_wintype = 'float'
-"let g:floaterm_position = 'bottom'
-
-" ==== UltiSnips ====
-let g:UltiSnipsExpandTrigger="<F5>" 
+let g:floaterm_height = 1.0
+let g:floaterm_width = 0.5
+let g:floaterm_wintype = 'float'
+let g:floaterm_position = 'right'
 
 " ==== Compile latex ====
 "autocmd filetype tex nnoremap <F9> :w <bar>!latexmk -interaction=nonstopmode -pdf >/dev/null 2>&1 <cr><cr>
 autocmd filetype tex nnoremap <F9> :VimtexCompile<cr>
 let g:vimtex_view_general_viewer = 'evince'
-
-
-" ==== lsp configs ====
-" LSP config commands
-"lua << EOF
-"local servers = { 'pyright', 'clangd', 'rust_analyzer', 'tsserver' }
-"for _, lsp in pairs(servers) do
-  "require('lspconfig')[lsp].setup {
-    "on_attach = on_attach,
-    "flags = {
-      "-- This will be the default in neovim 0.7+
-      "debounce_text_changes = 150,
-    "}
-  "}
-"end
-"EOF
-
-"" Disable Arrow keys in Normal mode
-"noremap <up> <nop>
-"noremap <down> <nop>
-"noremap <left> <nop>
-"noremap <right> <nop>
-
-"" Disable Arrow keys in Insert mode
-"inoremap <up> <nop>
-"inoremap <down> <nop>
-"inoremap <left> <nop>
-"inoremap <right> <nop>
