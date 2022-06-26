@@ -39,7 +39,7 @@ def create_tests(tests, problem_name):
         # write test input to file
         write_to_file(f'{test_name}.in', test['input'])
         # write test output to file
-        write_to_file(f'{test_name}.out', test['output'])
+        write_to_file(f'{test_name}.ans', test['output'])
 
 
 def main():
