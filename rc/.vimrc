@@ -7,7 +7,7 @@ set lazyredraw              " redraw screen only when we need to
 set showmatch               " highlight matching parentheses / brackets [{()}]
 set laststatus=2            " always show statusline (even with only single window)
 set ruler                   " show line and column number of the cursor on right side of statusline
-set visualbell 
+set novisualbell 
 set signcolumn=number       " show line number on statusline
 set nowrap                  " Avoid wrapping lines
 
