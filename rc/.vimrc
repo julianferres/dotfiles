@@ -62,6 +62,10 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'voldikss/vim-floaterm'
+Plug 'akinsho/toggleterm.nvim', {'tag' : 'v1.*'}
+
+Plug 'searleser97/cpbooster.vim'
+
 call plug#end()
 
 
@@ -224,7 +228,27 @@ let g:floaterm_width = 0.5
 let g:floaterm_wintype = 'float'
 let g:floaterm_position = 'right'
 
+nnoremap <silent> <F12> :ToggleTerm size=10 dir=. direction=horizontal<CR>
+tnoremap <silent> <F12>   <C-\><C-n>:ToggleTerm<CR>
+
+" ==== Lazygit inside toggleterm ====
+lua << EOF
+local Terminal  = require('toggleterm.terminal').Terminal
+local lazygit = Terminal:new({ cmd = "lazygit",
+                               direction = "tab", 
+                               hidden = true })
+
+function _lazygit_toggle()
+  lazygit:toggle()
+end
+
+vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
+EOF
+
+
 " ==== Compile latex ====
 "autocmd filetype tex nnoremap <F9> :w <bar>!latexmk -interaction=nonstopmode -pdf >/dev/null 2>&1 <cr><cr>
 autocmd filetype tex nnoremap <F9> :VimtexCompile<cr>
 let g:vimtex_view_general_viewer = 'evince'
+
+

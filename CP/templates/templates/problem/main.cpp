@@ -31,10 +31,15 @@ const ll INF = (1LL<<60); // const int INF = 1<<30;
 const int MOD = 1e9+7;    // const int MOD = 998244353;
 const int MAXN  = 2e5+5;
 
+void solve(){
+    
+}
+
 int main(){  
     FIN;
 
-
+    int test; cin >> test;
+    while(test--) solve();
 
     return 0;
 }

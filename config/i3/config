@@ -30,7 +30,7 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh,secrets,pkcs11
 # Spanish layout in keyboard
 exec --no-startup-id setxkbmap -layout latam 
-# Mate power management
+# Power management
 exec --no-startup-id mate-power-manager
 # Theme settings across gnome and i3wm
 exec --no-startup-id /usr/libexec/gsd-xsettings
@@ -49,8 +49,8 @@ bindsym $super+Return exec alacritty
 # Rofi commands (a program launcher)
 #bindsym $super+Shift+d exec rofi -show-icons -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 4 -font 'JetBrains Mono 12'
 bindsym $super+d exec rofi -combi-modi drun#run -show-icons -lines 12 -padding 18 -width 60 -location 0 -font "JetBrains Mono 12" -show combi
-bindsym $super+Tab exec rofi -show window -show-icons -font 'JetBrains Mono 12'
-bindsym $super+Shift+d exec tmux-session
+bindsym $alt+Tab exec rofi -show window -show-icons -font 'JetBrains Mono 12'
+#bindsym $super+Shift+d exec tmux-session
 
 bindsym $super+Shift+m exec rofi-autorandr
 bindsym $super+Control+m exec xrandrmenu
@@ -58,9 +58,10 @@ bindsym $super+Control+m exec xrandrmenu
 # common apps keybinds
 bindsym $super+w exec i3lock-blur
 
-bindsym $super+b exec google-chrome --password-store=gnome
+#bindsym $super+b exec google-chrome --password-store=gnome
+bindsym $super+b exec firefox
 bindsym $super+Shift+f exec nautilus
-bindsym $super+Shift+g exec geany
+bindsym $super+Shift+g exec env GTK_THEME=Yaru:light geany
 bindsym $super+Shift+e exec subl
 
 # Change volume
@@ -122,6 +123,8 @@ bindsym $super+e layout toggle split
 bindsym $super+space floating toggle
 # Change focus between tiling / floating windows
 bindsym $super+Shift+space focus mode_toggle
+# focus the parent container
+bindsym $super+a focus parent
 
 bindsym $super+comma scratchpad show
 bindsym $super+period move scratchpad
@@ -131,6 +134,7 @@ bindsym Control+$alt+v exec diodon
 # Switch to workspace
 bindsym $alt+Control+Right workspace next
 bindsym $alt+Control+Left workspace prev
+bindsym $super+Tab workspace back_and_forth
 bindsym $super+1 workspace 1
 bindsym $super+2 workspace 2
 bindsym $super+3 workspace 3
@@ -149,6 +153,7 @@ bindsym $super+Shift+6 move container to workspace 6
 bindsym $super+Shift+7 move container to workspace 7
 
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $super+Shift+c reload ; exec notify-send "i3config reloaded"
 bindsym $super+Shift+r restart
 
 # Exit i3
@@ -198,16 +203,20 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh --forest
 focus_on_window_activation focus
 for_window [class=".*"] border pixel 4
 
-assign [class=Google-chrome] 1
+assign [class=Google-chrome|firefox] 1
 assign [class=Sublime_text] 2
 assign [class=Evince] 3
 assign [class=isabelle-Main] 4
-assign [class=Discord|Transmission-gtk|Slack] 5
+assign [class=Discord|Transmission-gtk|Slack|TelegramDesktop] 5
 for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Blue*|Lxtask|Pavucontrol|Power*|copyq|Gpick] floating enable
-for_window [class=URxvt|Firefox|Geany|Evince|Soffice|libreoffice*|mpv|Ghb|Xfburn|Gimp*|Inkscape|Vlc|Lxappearance|Audacity] focus
+for_window [class=URxvt|Firefox|Geany|Gimp*|Inkscape|Lxappearance|Audacity|Transmission-gtk] focus
 for_window [class=Xfburn|File-roller|GParted|System-config-printer.py|Lxtask|Pavucontrol|Exo-helper*|Lxrandr|Arandr] focus
-for_window [title="Sign*"] floating enable
-for_window [window_type=popup_menu] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="Preferences"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [class="Yad" title="yad-calendar"] floating enable
 
 
 # colour of border, background, text, indicator, and child_border
