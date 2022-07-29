@@ -66,10 +66,14 @@ bindsym $super+Shift+e exec subl
 
 # Change volume
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym $super+F7 exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+# && $refresh_i3status
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+# && $refresh_i3status
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+# && $refresh_i3status
+bindsym $super+F7 exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+# && $refresh_i3status
 
 # Change brightness
 bindsym XF86MonBrightnessUp exec brightnessctl s +5%
@@ -204,10 +208,11 @@ focus_on_window_activation focus
 for_window [class=".*"] border pixel 4
 
 assign [class=Google-chrome|firefox] 1
-assign [class=Sublime_text] 2
+assign [class=Sublime_text|Geany] 2
 assign [class=Evince] 3
 assign [class=isabelle-Main] 4
 assign [class=Discord|Transmission-gtk|Slack|TelegramDesktop] 5
+assign [class=Spotify] 6
 for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Blue*|Lxtask|Pavucontrol|Power*|copyq|Gpick] floating enable
 for_window [class=URxvt|Firefox|Geany|Gimp*|Inkscape|Lxappearance|Audacity|Transmission-gtk] focus
 for_window [class=Xfburn|File-roller|GParted|System-config-printer.py|Lxtask|Pavucontrol|Exo-helper*|Lxrandr|Arandr] focus
@@ -259,8 +264,8 @@ set $hdmimonitor  HDMI-1
 set $laptopmonitor eDP-1
 
 workspace 1 output $laptopmonitor 
-workspace 2 output $laptopmonitor
-workspace 3 output $hdmimonitor $laptopmonitor
+workspace 2 output $hdmimonitor $laptopmonitor
+workspace 3 output $laptopmonitor
 workspace 4 output $hdmimonitor $laptopmonitor
 workspace 5 output $hdmimonitor $laptopmonitor
 workspace 6 output $hdmimonitor $laptopmonitor

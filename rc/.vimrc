@@ -36,6 +36,7 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'rust-lang/rust.vim'
 " UI
 Plug 'dracula/vim', { 'as': 'dracula' } 
+Plug 'morhetz/gruvbox'
 Plug 'mhinz/vim-startify'
 Plug 'patstockwell/vim-monokai-tasty'
 Plug 'vim-airline/vim-airline'
@@ -163,6 +164,8 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 "hi signcolumn ctermbg=235
 "let g:gruvbox_contrast_dark = 'hard'
 colorscheme dracula
+"colorscheme gruvbox
+"let g:gruvbox_contrast_dark = 'hard'
 
 " ==== Airline ====
 let g:airline_powerline_fonts = 1
@@ -177,8 +180,9 @@ let g:highlightedyank_highlight_duration = 500
 "colorscheme vim-monokai-tasty
 "let g:airline_theme='monokai_tasty'
 
-hi Normal ctermbg=NONE guibg=#000000
-hi LineNr ctermbg=NONE guibg=#000000
+"hi Normal ctermbg=NONE guibg=#000000
+"hi LineNr ctermbg=NONE guibg=#000000
+set termguicolors
 
 """ ==== coc.nvim ====
 " coc settings and mappings
@@ -228,27 +232,11 @@ let g:floaterm_width = 0.5
 let g:floaterm_wintype = 'float'
 let g:floaterm_position = 'right'
 
-nnoremap <silent> <F12> :ToggleTerm size=10 dir=. direction=horizontal<CR>
-tnoremap <silent> <F12>   <C-\><C-n>:ToggleTerm<CR>
-
-" ==== Lazygit inside toggleterm ====
-lua << EOF
-local Terminal  = require('toggleterm.terminal').Terminal
-local lazygit = Terminal:new({ cmd = "lazygit",
-                               direction = "tab", 
-                               hidden = true })
-
-function _lazygit_toggle()
-  lazygit:toggle()
-end
-
-vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
-EOF
-
-
 " ==== Compile latex ====
 "autocmd filetype tex nnoremap <F9> :w <bar>!latexmk -interaction=nonstopmode -pdf >/dev/null 2>&1 <cr><cr>
 autocmd filetype tex nnoremap <F9> :VimtexCompile<cr>
 let g:vimtex_view_general_viewer = 'evince'
+
+autocmd filetype markdown nnoremap <F9> :CocCommand markdown-preview-enhanced.openPreview<cr>
 
 

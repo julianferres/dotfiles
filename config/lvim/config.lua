@@ -10,8 +10,8 @@ an executable
 
 -- general
 lvim.log.level = "warn"
-lvim.format_on_save = true
-lvim.colorscheme = "onedarker"
+lvim.format_on_save = false
+lvim.colorscheme = "dracula"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
@@ -45,15 +45,15 @@ lvim.keys.insert_mode["<C-s>"] = "<Esc>:w<cr>"
 
 -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
--- lvim.builtin.which_key.mappings["t"] = {
---   name = "+Trouble",
---   r = { "<cmd>Trouble lsp_references<cr>", "References" },
---   f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
---   d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" },
---   q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
---   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
---   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Wordspace Diagnostics" },
--- }
+lvim.builtin.which_key.mappings["t"] = {
+  name = "+Trouble",
+  r = { "<cmd>Trouble lsp_references<cr>", "References" },
+  f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
+  d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" },
+  q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
+  l = { "<cmd>Trouble loclist<cr>", "LocationList" },
+  w = { "<cmd>Trouble workspace_diagnostics<cr>", "Wordspace Diagnostics" },
+}
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
@@ -143,15 +143,25 @@ lvim.builtin.treesitter.highlight.enabled = true
 --     filetypes = { "javascript", "python" },
 --   },
 -- }
-
--- Additional Plugins
--- lvim.plugins = {
---     {"folke/tokyonight.nvim"},
---     {
---       "folke/trouble.nvim",
---       cmd = "TroubleToggle",
---     },
--- }
+-- Additional
+-- Plugins
+lvim.plugins = {
+  { "folke/tokyonight.nvim" },
+  { "lunarvim/colorschemes" },
+  { 'cplaursen/vim-isabelle' },
+  { 'dracula/vim' },
+  { 'lervag/vimtex' },
+  { 'morhetz/gruvbox' },
+  { 'preservim/nerdcommenter' },
+  { 'scrooloose/nerdtree' },
+  { 'tpope/vim-repeat' },
+  { 'tpope/vim-surround' },
+  { 'tpope/vim-unimpaired' },
+  {
+    "folke/trouble.nvim",
+    cmd = "troubletoggle",
+  },
+}
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- vim.api.nvim_create_autocmd("BufEnter", {
@@ -166,3 +176,10 @@ lvim.builtin.treesitter.highlight.enabled = true
 --     require("nvim-treesitter.highlight").attach(0, "bash")
 --   end,
 -- })
+
+vim.o.termguicolors = true
+vim.g.tokyonight_style = 'night'
+vim.cmd [[
+  autocmd filetype tex nnoremap <F9> :VimtexCompile<cr>
+  let g:vimtex_view_general_viewer = 'evince'
+]]

@@ -136,6 +136,7 @@ alias vim="nvim"
 alias p="python3"
 alias python="python3"
 alias grep="grep --color=auto"
+alias apt="sudo nala"
 
 # Switch to exa instead of ls
 alias ls="exa -G"
@@ -195,7 +196,7 @@ function good-night(){
 #export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*,target/*}"'
 
 # Exclude those directories even if not listed in .gitignore, or if .gitignore is missing
-FD_OPTIONS="--follow --exclude .git --exclude node_modules"
+FD_OPTIONS="--follow --exclude .git --exclude node_modules --exclude go --exclude Isabelle2021"
 
 # Change behavior of fzf dialogue
 export FZF_DEFAULT_OPTS="--no-mouse --height 50% -1 --reverse --multi --inline-info --preview='[[ \$(file --mime {}) =~ binary ]] && echo {} is a binary file || (bat --style=numbers --color=always {} || cat {}) 2> /dev/null | head -300' --preview-window='right:hidden:wrap' --bind='f3:execute(bat --style=numbers {} || less -f {}),f2:toggle-preview,ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-a:select-all+accept,ctrl-y:execute-silent(echo {+} | pbcopy)'"
