@@ -10,6 +10,7 @@ set ruler                   " show line and column number of the cursor on right
 set novisualbell 
 set signcolumn=number       " show line number on statusline
 set nowrap                  " Avoid wrapping lines
+set noswapfile
 
 " Permanent undo
 set undodir=~/.vim/undodir
@@ -29,6 +30,7 @@ call plug#begin('~/.vim/plugged')
 " Sytax and Autocomplete
 """Plug 'github/copilot.vim'
 Plug 'ap/vim-css-color'
+Plug 'jxnblk/vim-mdx-js'
 Plug 'cplaursen/vim-isabelle'
 Plug 'mxw/vim-jsx'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -197,13 +199,28 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" make tab traverse suggestion options and enter not to jump line
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" Use <c-space> to trigger completion in neovim with ctrl+space
-inoremap <silent><expr> <c-space> coc#refresh()
+"Use <tab> and <S-tab> to navigate completion list:
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
 
+" Insert <tab> when previous text is space, refresh completion if not.
+inoremap <silent><expr> <TAB>
+  \ coc#pum#visible() ? coc#pum#next(1):
+  \ <SID>check_back_space() ? "\<Tab>" :
+  \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+"Use <c-space> to trigger completion:
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+"Use <CR> to confirm completion, use:
+inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call ShowDocumentation()<CR>
@@ -227,10 +244,10 @@ nmap <leader>cl  <Plug>(coc-codelens-action)
 " ==== floaterm ==== 
 nnoremap   <silent>   <F12>   :FloatermToggle<CR>
 tnoremap   <silent>   <F12>   <C-\><C-n>:FloatermToggle<CR>
-let g:floaterm_height = 1.0
-let g:floaterm_width = 0.5
+let g:floaterm_height = 0.4
+let g:floaterm_width = 1.0
 let g:floaterm_wintype = 'float'
-let g:floaterm_position = 'right'
+let g:floaterm_position = 'bottom'
 
 " ==== Compile latex ====
 "autocmd filetype tex nnoremap <F9> :w <bar>!latexmk -interaction=nonstopmode -pdf >/dev/null 2>&1 <cr><cr>

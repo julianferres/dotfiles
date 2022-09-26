@@ -24,4 +24,14 @@ def fastio():
 fastio()
 """
 
+def solve():
+    pass
+
+
+def main():
+    test = int(input())
+    for _ in range(test): solve()
+
+main()
+
 

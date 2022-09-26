@@ -26,7 +26,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 #ZSH_TMUX_AUTOSTART=true
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="false"
 
 # Uncomment the following line to automatically update without prompting.
 # DISABLE_UPDATE_PROMPT="true"
@@ -75,7 +75,6 @@ plugins=(
     autojump
     colored-man-pages
     colorize
-    copydir
     copyfile
     dirhistory
     docker
@@ -127,6 +126,10 @@ function estufapy(){
     do cp ~/CP/templates/problem/main.py "${problem%%.*}".py
     done
 }
+function precompile_headers(){
+    sudo g++ -std=c++17 -O2 -g -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -Wno-unused-result -Wno-sign-conversion -D_GLIBCXX_DEBUG -DLOCAL -H /usr/include/x86_64-linux-gnu/c++/11/bits/stdc++.h
+}
+
 function refresh_dotfiles(){
     ~/dotfiles/refresh_dotfiles.sh
 }
@@ -158,6 +161,7 @@ alias cpboosterconfig="vim ~/.config/cpbooster/cpbooster-config.json"
 alias open="xdg-open"
 
 alias ncdu="ncdu --color=dark"
+alias du="du --block-size=M -s -h"
 alias cat="bat"
 
 # Git aliases
