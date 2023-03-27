@@ -64,7 +64,7 @@ vim.opt.autoread = true -- autoreload the file in Vim if it has been changed out
 vim.opt.clipboard = "unnamedplus" -- link global clipboard
 -- Competitive programming compile autocmd
 vim.api.nvim_create_autocmd("FileType", { pattern = "cpp", 
-command = "autocmd filetype cpp nnoremap <F8> :w <bar> ! g++ -std=c++17 -DLOCAL -Wall -g -O2 -Wconversion -Wshadow -Wextra % -o %:r<CR>"})
+command = "autocmd filetype cpp nnoremap <F9> :w <bar> ! g++ -std=c++17 -DLOCAL -Wall -g -O2 -Wconversion -Wshadow -Wextra % -o %:r<CR>"})
 
 -- Colorscheme --
 vim.cmd("colorscheme tokyonight-moon")
@@ -78,9 +78,11 @@ require('lualine').setup {
 vim.keymap.set("n", "<F6>", ":NERDTreeToggle<CR>") -- toggle NERDTree
 vim.keymap.set("n", "<F10>", ":UndotreeToggle<CR>") -- toggle Undotree
 -- Telescope
-vim.keymap.set("n", "<C-p>", ":Telescope find_files<CR>") -- find files
-vim.keymap.set("n", "<C-t>", ":Telescope live_grep<CR>") -- search for text
-vim.keymap.set("n", "<leader>b", ":Telescope buffers<CR>") -- list buffers
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<C-p>', builtin.find_files, {})
+vim.keymap.set('n', '<C-t>', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>b', builtin.buffers, {})
+vim.keymap.set("n", "<leader>e", builtin.diagnostics, {})
 -- FTerm
 require'FTerm'.setup({
     cmd = 'pwsh -nologo',
@@ -90,7 +92,19 @@ vim.keymap.set('n', '<F12>', '<CMD>lua require("FTerm").toggle()<CR>')
 vim.keymap.set('t', '<F12>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
 -- LSP zero
 local lsp = require('lsp-zero')
+local cmp = require('cmp')
+
 lsp.preset('recommended')
+lsp.setup_nvim_cmp({
+  mapping = cmp.mapping.preset.insert({
+      ['<Tab>'] = vim.NIL,
+      ['<S-Tab>'] = vim.NIL,
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ["<C-Space>"] = cmp.mapping(cmp.mapping.complete({
+            reason = cmp.ContextReason.Auto,
+          }), {"i", "c"}),
+  })
+})
 lsp.setup()
 vim.diagnostic.config({ -- Inline errors
   virtual_text = true
@@ -105,4 +119,6 @@ require("mason").setup({
         }
     }
 })
+
+
 

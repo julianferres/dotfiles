@@ -30,7 +30,6 @@ return require('packer').startup(function(use)
   use 'numToStr/FTerm.nvim' -- Floating terminal
   use 'lervag/vimtex' -- Latex support
   -- LSP 
-  use 'ranjithshegde/ccls.nvim'
   use {
       'VonHeikemen/lsp-zero.nvim',
       branch = 'v1.x',
